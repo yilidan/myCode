@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>timeDemo</title>
+    <style media="screen">
+        .time1{
+            margin-top: 20px;
+        }
+        div>span{
+            font-size: 20px;
+            color: #e4393c;
+        }
+        .time2{
+            margin-top: 100px;
+        }
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" v-cloak>
+        <div class="time1">
+            <p>当前时间倒计时(自己获取)</p>
+            <span>{{day1}}天</span>
+            <span>{{hour1}}时</span>
+            <span>{{minute1}}分</span>
+            <span>{{second1}}秒</span>
+        </div>
+        <div class="time2">
+            <p>当前时间倒计时(接口获取)</p>
+            <span>{{day3}}天</span>
+            <span>{{hour3}}时</span>
+            <span>{{minute3}}分</span>
+            <span>{{second3}}秒</span>
+        </div>
+    </div>
+
+
+    <script type="text/javascript" src="js/vue.js"></script>
+    <script type="text/javascript">
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                day1:'--',
+                hour1:'--',
+                minute1:'--',
+                second1:'--',
+                day3:'--',
+                hour3:'--',
+                minute3:'--',
+                second3:'--',
+
+            },
+            mounted:function(){
+                this.$nextTick(()=>{
+                    this.countTime1();
+                })
+            },
+            methods:{
+                // 当前时间倒计时(自己获取)
+                countTime1:function(){
+                    //获取当前时间
+                    var date = new Date();
+                    var now = date.getTime();
+                    //设置截止时间
+                    var endDate = new Date("2017-12-25 23:23:23");
+                    var end = endDate.getTime();
+                    //时间差
+                    var leftTime = end-now;
+                    //定义变量 d,h,m,s保存倒计时的时间
+                    var d,h,m,s;
+                    if (leftTime>=0) {
+                        d = Math.floor(leftTime/1000/60/60/24);
+                        h = Math.floor(leftTime/1000/60/60%24);
+                        m = Math.floor(leftTime/1000/60%60);
+                        s = Math.floor(leftTime/1000%60);
+                    }else{
+                        alert("活动结束");
+                    }
+                    //将倒计时赋值到div中
+                    this.day1 = d;
+                    this.hour1 = h;
+                    this.minute1 = m;
+                    this.second1 = s;
+                    //递归每秒调用countTime方法，显示动态时间效果
+                    setTimeout(vm.countTime1,1000);
+                },
+                // 当前时间倒计时(接口获取)
+                countTime2:function(){
+
+                },
+
+            },
+
+        })
+
+    </script>
+</body>
+</html>
