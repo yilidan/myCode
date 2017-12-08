@@ -46,10 +46,11 @@
             text-align: center;
             color: #fff;
             font-size: 14px;
+            /*点击遮罩*/
             -webkit-tap-highlight-color:#333;
         }
         .clickDemo>a{
-            -webkit-tap-highlight-color:#fff;
+            /*-webkit-tap-highlight-color:#333;*/
         }
         .clickDemo b{
             display: block;
@@ -65,6 +66,12 @@
         }
         b:hover, b.hover {
             background-color: #fff000;
+        }
+        .clickDemo1{
+            margin-top: 20px;
+        }
+        .clickDemo1>p{
+            -webkit-user-select:none
         }
     </style>
 </head>
@@ -94,6 +101,13 @@
         <b>3</b>
         <b>4</b>
         <b>5</b>
+        <!-- 一、打电话 -->
+        <a href="tel:0755-10086">打电话给:0755-10086</a>
+        <!-- 二、发短信，winphone系统无效 -->
+        <a href="sms:10086">发短信给: 10086</a>
+    </div>
+    <div class="clickDemo1">
+        <p>禁止用户选中文字</p>
     </div>
 
 

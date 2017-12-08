@@ -19,6 +19,27 @@
         [v-cloak]{
             display: none;
         }
+        .demo1{
+            margin-top: 20px;
+            font-family: "Microsoft Yahei";
+        }
+        .demo1>span{
+            /*display: inline-block;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;*/
+            text-align: center;
+            padding:0 5px;
+            vertical-align: middle;
+            background-color: #FA6B19;
+            color: #fff;
+            font-size: 28px;
+        }
+        .demo1>b{
+            vertical-align: sub;
+            color: #FA6B19;
+            font-size: 28px;
+        }
     </style>
 </head>
 <body>
@@ -30,12 +51,20 @@
             <span>{{minute1}}分</span>
             <span>{{second1}}秒</span>
         </div>
-        <div class="time2">
-            <p>当前时间倒计时(接口获取)</p>
-            <span>{{day3}}天</span>
-            <span>{{hour3}}时</span>
-            <span>{{minute3}}分</span>
-            <span>{{second3}}秒</span>
+        <div class="demo1">
+            <span>{{hours}}</span>
+            <b>:</b>
+            <span>{{minutes}}</span>
+            <b>:</b>
+            <span>{{seconds}}</span>
+        </div>
+        <div class="demo1">
+            <p>当前时间倒计时(接口获取--秒)</p>
+            <span>{{hours3}}</span>
+            <b>:</b>
+            <span>{{minutes3}}</span>
+            <b>:</b>
+            <span>{{seconds3}}</span>
         </div>
     </div>
 
@@ -49,15 +78,22 @@
                 hour1:'--',
                 minute1:'--',
                 second1:'--',
-                day3:'--',
-                hour3:'--',
-                minute3:'--',
-                second3:'--',
+
+                hours:'--',
+                minutes:'--',
+                seconds:'--',
+
+                hours3:'--',
+                minutes3:'--',
+                seconds3:'--',
+
+                total:100,
 
             },
             mounted:function(){
                 this.$nextTick(()=>{
                     this.countTime1();
+                    this.countTime2(this.total);
                 })
             },
             methods:{
@@ -67,17 +103,23 @@
                     var date = new Date();
                     var now = date.getTime();
                     //设置截止时间
-                    var endDate = new Date("2017-12-25 23:23:23");
+                    var endDate = new Date("2017-12-10 09:00:00");
                     var end = endDate.getTime();
                     //时间差
                     var leftTime = end-now;
                     //定义变量 d,h,m,s保存倒计时的时间
                     var d,h,m,s;
+                    let x,y,z;
                     if (leftTime>=0) {
                         d = Math.floor(leftTime/1000/60/60/24);
                         h = Math.floor(leftTime/1000/60/60%24);
                         m = Math.floor(leftTime/1000/60%60);
                         s = Math.floor(leftTime/1000%60);
+
+                        x = Math.floor(leftTime/1000/60/60);
+                        y = Math.floor(leftTime/1000/60%60);
+                        z = Math.floor(leftTime/1000%60);
+
                     }else{
                         alert("活动结束");
                     }
@@ -86,12 +128,61 @@
                     this.hour1 = h;
                     this.minute1 = m;
                     this.second1 = s;
+
+                    x = x<10?'0'+x:x;
+                    y = y<10?'0'+y:y;
+                    z = z<10?'0'+z:z;
+                    this.hours = x;
+                    this.minutes = y;
+                    this.seconds = z;
+
                     //递归每秒调用countTime方法，显示动态时间效果
                     setTimeout(vm.countTime1,1000);
                 },
-                // 当前时间倒计时(接口获取)
-                countTime2:function(){
 
+                // 当前时间倒计时(接口获取--秒)
+                countTime2:function(maxtime){
+                    var timer = setInterval(()=> {
+                        if (maxtime >=0) {
+                        	var msg='';
+                            let second = Math.floor(maxtime % 60);             // 计算秒
+                  			let minite = Math.floor((maxtime / 60) % 60);      //计算分
+                  	// 		var hour = Math.floor((maxtime / 3600) % 24);      //计算小时
+                            let hour = Math.floor((maxtime / 3600));
+                   // 			var day = Math.floor((maxtime / 3600) / 24);        //计算天
+                   			hour = hour<10?"0"+hour:hour;
+                            minite = minite<10?"0"+minite:minite;
+                            second = second<10?"0"+second:second;
+                            // if(day=="0"){
+                            // 	msg = hour + "时" + minite + "分";
+                            // }else{
+                            // 	msg = day + "天" + hour + "时";
+                            // }
+                            // if(minite=="00"&&hour=="00"){
+                            // 	msg = minite + "分" + second + "秒";
+                            // }
+                            --maxtime;
+                            this.hours3 = hour;
+                            this.minutes3 = minite;
+                            this.seconds3 = second;
+
+                        } else if(maxtime<0) {
+                            clearInterval(timer);
+                            alert("活动结束");
+                            // var a=that.attr("data-i");
+                    		// // alert(a)
+                    		// // console.log(that);
+                    		// if(a!=undefined){
+                	    	// 	var txt=that.html();
+                    		// 	that.hide();
+                    		// 	console.log(that);
+                    		// 	txt="<li>"+txt+"</li>";
+                    		// 	console.log(txt);
+                    		// 	$("#content ul.over").append($(txt));
+                    		// 	$(".over li #zhezhaocheng").show();
+                            // }
+                        };
+                    }, 1000);
                 },
 
             },
