@@ -109,6 +109,10 @@
     <div class="clickDemo1">
         <p>禁止用户选中文字</p>
     </div>
+    <div class="clickDemo2">
+        <p>移动端网页调试神器</p>
+        <h5 onclick="showEruda()">点击10次显示</h5>
+    </div>
 
 
     <script type="text/javascript" src="swiper/swiper.min.js"></script>
@@ -131,6 +135,29 @@
         　　myLinks[i].addEventListener("touchstart", function(){this.className = "hover";}, false);
         　　myLinks[i].addEventListener("touchend", function(){this.className = "";}, false);
         }
+
+        console.log("123abcABC");
+        // Eruda调试工具
+        var count = 0;
+        function showEruda () {
+            if (count >= 10) {
+                var erdua = sessionStorage.getItem('erdua');
+                if (!erdua || erdua === 'false'){
+                    sessionStorage.setItem('eruda', 'true')
+                } else {
+                    sessionStorage.setItem('eruda', 'false')
+                }
+                location.reload()
+            }
+            count++
+        }
+
+        ;(function () {
+            if (!/eruda=true/.test(window.location) || sessionStorage.getItem('eruda') !== 'true') return;
+            var src = 'https://cdn.bootcss.com/eruda/1.2.4/eruda.min.js';
+            document.write('<scr' + 'ipt src="' + src + '"></scr' + 'ipt>');
+            document.write('<scr' + 'ipt>eruda.init();</scr' + 'ipt>');
+        })();
 
     </script>
 </body>
