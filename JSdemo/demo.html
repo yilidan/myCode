@@ -73,6 +73,66 @@
         .clickDemo1>p{
             -webkit-user-select:none
         }
+
+        .tx1 {
+            position: relative;
+            background-color: #4ca037;
+            width: 200px;
+            height: 200px;
+        }
+        .tx1:after {
+            content: '';
+            position: absolute;
+            right: -100px;
+            top: 0;
+            width: 100px;
+            height: 200px;
+            border-left: 50px solid #3cb162;
+            border-right: 50px solid transparent;
+            border-bottom: 100px solid #3dbf59;
+            border-top: 100px solid transparent;
+        }
+        .tx3{
+            /*height: 300px;
+            width: 100%;
+            background-color: #FFC800;*/
+            /*margin: 50px;*/
+            /*border-radius: 15px;*/
+            /*transform: perspective(20px) rotateX(-1deg) rotateY(-2deg) translateZ(0);*/
+            /*transform:rotate(9deg);*/
+        }
+        .tx4::before{
+            content: "";
+            font-size:16px;
+            display:block;
+            color:#fff;
+            height: 0;
+            width: 300px;
+            line-height:30px;
+            padding-left:5px;
+            border-width: 0px 100px 100px 0px;
+            border-style: none solid solid;
+            border-color: transparent transparent #111;
+
+            /*border-left: 0 solid #111;
+            border-right: 60px solid transparent;
+            border-bottom: 100px solid #111;
+            border-top: 0 solid transparent;*/
+
+            /*border-left: 100px solid transparent;
+            border-right: 0px solid transparent;
+            border-bottom: 0px solid transparent;
+            border-top: 100px solid #111;*/
+            /*transform:rotate(90deg);*/
+        }
+        .tx5{
+            width: 0;
+            height: 0;
+            border-left: 100px solid transparent;
+            border-right: 100px solid transparent;
+            border-bottom: 100px solid transparent;
+            border-top: 100px solid #111;
+        }
     </style>
 </head>
 <body>
@@ -112,6 +172,15 @@
     <div class="clickDemo2">
         <p>移动端网页调试神器</p>
         <h5 onclick="showEruda()">点击10次显示</h5>
+    </div>
+    <!-- css实现形状 -->
+    <div class="clickDemo1">
+        <!-- <div class="tx1"></div> -->
+    </div>
+    <div class="clickDemo1">
+        <div class="tx3"></div>
+        <div class="tx4"></div>
+        <div class="tx5"></div>
     </div>
 
 
@@ -154,7 +223,7 @@
 
         ;(function () {
             if (!/eruda=true/.test(window.location) || sessionStorage.getItem('eruda') !== 'true') return;
-            var src = 'https://cdn.bootcss.com/eruda/1.2.4/eruda.min.js';
+            var src = 'http://cdn.bootcss.com/eruda/1.2.4/eruda.min.js';
             document.write('<scr' + 'ipt src="' + src + '"></scr' + 'ipt>');
             document.write('<scr' + 'ipt>eruda.init();</scr' + 'ipt>');
         })();

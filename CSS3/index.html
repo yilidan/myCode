@@ -5,19 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>css3Demo</title>
-    <style media="screen">
+    <style>
         *{
             padding:0;
             margin:0;
         }
         .radial-gradient{
-            width: 300px;
-            height: 200px;
+            width: 200px;
+            height: 100px;
             background: radial-gradient(closest-side circle at 50px 50px,yellow,red);
         }
         .radial-gradient1{
-            width: 200px;
-            height: 200px;
+            width: 100px;
+            height: 100px;
             margin-top: 20px;
             border:1px solid silver;
             background: radial-gradient(closest-side circle, yellow, orange, red, white)
@@ -38,7 +38,38 @@
             bottom: -10px;
             background: radial-gradient(20px 15px ellipse at top, #e4393c 10px, transparent 11px);
             background-size: 20px 10px;
-
+        }
+        .textOmit{
+            margin-top: 20px;
+        }
+        .textOmit>p{
+            display: -webkit-box;
+            font-size: 14px;
+            line-height: 18px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+        .icons-png{
+            margin-top: 20px;
+        }
+        .icon{
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            overflow: hidden;
+        }
+        .icon-up{
+            background: url("img/up.png") no-repeat center;
+        }
+        .icon>.icon{
+            position: relative;
+            left:-30px;
+            border-right: 30px solid transparent;
+            -webkit-filter:drop-shadow(30px 0);
+            filter: drop-shadow(30px 0);
+            color: red;
         }
     </style>
 </head>
@@ -47,8 +78,20 @@
     <div class="radial-gradient1"></div>
     <!-- 水波效果 -->
     <div class="radial-gradient3"></div>
-
-
+    <!-- 多行省略 -->
+    <div class="textOmit">
+        <p>当浏览器显示文档时，它必须将文档的内容与其样式信息结合。它分两个阶段处理文档：浏览器将 HTML 和 CSS 转化成 DOM （文档对象模型）。DOM在计算机内存中表示文档。它把文档内</p>
+    </div>
+    <!-- PNG格式小图标的CSS任意颜色赋色技术 -->
+    <div class="icons-png">
+        <p>PNG格式小图标的CSS任意颜色赋色技术</p>
+        <div class="icons-demo">
+            <p><strong>原始图标</strong></p>
+            <i class="icon icon-up"></i>
+            <p><strong>可以变色的图标</strong></p>
+            <i class="icon"><i class="icon icon-up"></i></i>
+        </div>
+    </div>
 
 </body>
 </html>
