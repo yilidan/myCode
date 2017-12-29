@@ -5,11 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>精心收集的48个JavaScript 代码片段</title>
+    <style media="screen">
+        .demoStr{
+            margin-top: 30px;
+        }
+        .demoStr span{
+            padding:5px 10px;
+            text-align: center;
+            background-color: #e4393c;
+            color: #fff;
+            margin-left: 5px;
+        }
+        [v-cloak]{display: none;}
+    </style>
 </head>
 <body>
-    <div>查看控制台</div>
+    <div id="app" v-cloak>
+        <div>查看控制台</div>
+        <div class="demoStr">
+            <span v-for="(item,index) in textStr">{{item}}</span>
+        </div>
+    </div>
 
 
+
+    <script type="text/javascript" src="js/vue.js"></script>
     <script type="text/javascript">
         // 1.使用window.location.href来获取当前URL
         const current = () => window.location.href;
@@ -17,10 +37,23 @@
 
         // 2.过滤数组中的非唯一值
         //   将Array.filter（）用于仅包含唯一值的数组
-        const unique = arr => arr.filter(i => arr.indexOf(i) === arr.lastIndexOf(i));
-        console.log(unique(1,2,3,2,3,5));
+        // const unique = arr => arr.filter(i => arr.indexOf(i) === arr.lastIndexOf(i));
+        // console.log(unique(1,2,3,2,3,5));
 
         // 3.数组中最大值
+
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                textStr:"123.11.11",
+            },
+            mounted:function(){
+
+            },
+            methods:{
+
+            },
+        })
 
     </script>
 </body>
