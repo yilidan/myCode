@@ -132,6 +132,36 @@
         console.log(obj1);
         console.log(obj4);
 
+        // 金额的人民币表示方法(每三位数逗号分割)
+        
+        //方法一 
+        function convert1(money){
+            money = money.toString();
+            var integer = money.slice(0, money.indexOf(".")); // 1003450
+            var decimal = money.slice(money.indexOf(".")); //89
+            var integerArray = integer.split("");
+            var res = "", m = 1;
+            for(var i = integerArray.length - 1; i >= 0; i--){
+                res += integerArray[i];
+                if(m === 3) {
+                    m = 0;
+                    res += ",";
+                }
+                m++;
+            }
+            return res.split("").reverse().join("") + decimal;
+        }
+        console.log(convert1(1003457678770.089));   // 1,003,457,678,770.089
+
+        //方法二
+        function convert2(money){
+            return parseFloat(money).toLocaleString();
+        }
+        console.log(convert2('1003457678770.089'));   // 1,003,457,678,770.089
+
+        //方法三
+        console.log((1003457678770.089).toLocaleString());
+
         var vm = new Vue({
             el:"#app",
             data:{
