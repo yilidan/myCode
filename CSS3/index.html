@@ -102,6 +102,34 @@
                 transform: rotateZ(45deg) scale(1.414);
             }
         }
+        /*水平垂直居中*/
+        .demo-center{
+            width: 90%;
+            height: 300px;
+            border: 1px solid #e4393c;
+            margin-top: 10px;
+            position: relative;
+        }
+        .demo-center1{
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -50px;
+            margin-left: -50px;
+            border: 1px solid blue;
+        }
+        .demo-center3{
+            display: flex;
+            display: -webkit-flex;
+            justify-content: center;
+            align-items: center;
+            width: 90%;
+            height: 300px;
+            border: 1px solid #e4393c;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -125,6 +153,16 @@
     </div>
     <!-- 斜线 -->
     <div class="bias"></div>
+    <!-- 水平垂直居中 实现一 -->
+    <div class="demo-center">
+        <div class="demo-center1"></div>
+    </div>
+    <!-- 水平垂直居中 实现二 -->
+    <div class="demo-center3">
+        <div class="demo-center4">
+            水平垂直居中 实现二
+        </div>
+    </div>
 
 </body>
 </html>
