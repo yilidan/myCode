@@ -33,18 +33,20 @@
         })
 
         // 初始化一个 WebSocket 对象
-        var ws = new WebSocket("wss://echo.websocket.org");
-
+        // var ws = new WebSocket("wss://echo.websocket.org");
+        var ws = new WebSocket("ws://192.168.0.111:12345/ws");
+        
         // 建立 web socket 连接成功触发事件
         ws.onopen = function () {
             // 使用 send() 方法发送数据
-            ws.send("发送数据");
+            ws.send("发送数据123");
             console.log("数据发送中...");
         };
 
         // 接收服务端数据时触发事件
         ws.onmessage = function (evt) {
             var received_msg = evt.data;
+            console.log(evt);
             console.log("数据已接收...");
         };
 

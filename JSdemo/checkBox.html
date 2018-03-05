@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>复选框</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .checkBox li{
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            border: 1px solid red;
+            margin-top: 10px;
+        }
+        .active{
+            background-color: #fff123;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <ul class="checkBox">
+            <li v-for="item in dataItem" :class="{'active':item.check}" @click="selectedBtn(item)"></li>
+            <li :clas></li>
+        </ul>
+    </div>
+    
+
+    <script src="js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                dataItem:[
+                    {'name':'1'},
+                    {'name':'2'},
+                    {'name':'3'},
+                    {'name':'4'},
+                    {'name':'5'},
+                    {'name':'6'},
+                ],
+            },
+            mounted () {
+                
+            },
+            methods: {
+                selectedBtn:function(item){
+                    if(typeof item.check === "undefined"){
+                        this.$set(item,"check",true);
+                    }else{
+                        item.check = !item.check;
+                    }
+                },
+            },
+
+        })
+    </script>
+</body>
+</html>

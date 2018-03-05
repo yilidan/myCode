@@ -130,6 +130,33 @@
             border: 1px solid #e4393c;
             margin-top: 10px;
         }
+        .demo-center5{
+            display: table-cell;
+            width: 300px;
+            height: 300px;
+            border: 1px solid #e4393c;
+            margin-top: 10px;
+            text-align: center;
+            vertical-align: middle;
+        }
+        .demo-center5>img{
+            vertical-align: middle;
+            /* transform: translate(-50%,-50%); */
+        }
+        .demo-center6{
+            width: 300px;
+            height: 300px;
+            border: 1px solid #e4393c;
+            margin-top: 10px;
+            position: relative;
+        }
+        .demo-center6>img{
+            position: absolute;
+            top:50%;
+            left:50%;
+            transform: translate(-50%,-50%);
+        }
+
     </style>
 </head>
 <body>
@@ -153,15 +180,23 @@
     </div>
     <!-- 斜线 -->
     <div class="bias"></div>
-    <!-- 水平垂直居中 实现一 -->
+    <!-- 水平垂直居中 实现一  (定宽高)-->
     <div class="demo-center">
         <div class="demo-center1"></div>
     </div>
-    <!-- 水平垂直居中 实现二 -->
+    <!-- 水平垂直居中 实现二  （不定宽高）-->
     <div class="demo-center3">
         <div class="demo-center4">
             水平垂直居中 实现二
         </div>
+    </div>
+    <!-- 水平垂直居中 实现三 （不定宽高） -->
+    <div class="demo-center5">
+        <img src="img/search.png" alt="">
+    </div>
+    <!-- 水平垂直居中 实现四 （不定宽高） -->
+    <div class="demo-center6">
+        <img src="img/search.png" alt="">
     </div>
 
 </body>

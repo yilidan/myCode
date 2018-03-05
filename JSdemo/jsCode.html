@@ -162,6 +162,32 @@
         //方法三
         console.log((1003457678770.089).toLocaleString());
 
+        // 闭包
+        var name = 'window'
+        function closure() {
+            var name = 'init';
+            return {
+                get_name: function() {
+                    return name
+                },
+                set_name: function(value) {
+                    name = value;
+                    return name;
+                }
+            }
+        }
+        var result = closure()
+        console.log(result.get_name());
+        result.set_name('syj');
+        console.log(result.get_name());
+
+
+
+
+
+
+
+
         var vm = new Vue({
             el:"#app",
             data:{
@@ -174,6 +200,8 @@
 
             },
         })
+
+        
 
     </script>
 </body>
