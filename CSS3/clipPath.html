@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CSS</title>
+    <style>
+        input{
+            color: #000;
+            caret-color: red;
+        }
+        @supports(-webkit-mask: none) and (not(caret-color:red)){
+            input{
+                color: red;
+            }
+            input::first-line{
+                color: red;
+            }
+        }
+    </style>
+</head>
+<body>
+    <input type="text" value="测试光标">
+
+
+
+</body>
+</html>
