@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>不可思议的CSS导航栏下划线跟随效果</title>
+  <style>
+    *{
+      padding: 0;
+      margin: 0;
+    }
+    ul{
+      list-style: none;
+      margin-top: 30px;
+    }
+    ul li{
+      float: left;
+      margin-left: 20px;
+      padding-bottom: 8px;
+      position: relative;
+      cursor: pointer;
+    }
+    ul li::before{
+      content: '';
+      position: absolute;
+      top:0;
+      left:100%;
+      width: 0;
+      height: 100%;
+      border-bottom: 2px solid #000;
+      transition: 0.2s all linear;
+    }
+    ul li:hover::before{
+      width: 100%;
+      left:0;
+      transition-delay: 0.1s;
+    }
+    li:hover ~ li::before{
+      left:0;
+    }
+    li:active {
+      background: #333;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <ul>
+      <li>不可思议的CSS</li>
+      <li>导航栏</li>
+      <li>光标小下划线跟随</li>
+      <li>PURE CSS</li>
+      <li>Nav Underline</li>
+    </ul>
+  </div>
+</body>
+</html>
