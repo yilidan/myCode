@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>征文大赛</title>
+  <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+  <div id="app">
+    <div class="header">
+      <div class="logo">
+        <img src="./images/logo.png" alt="">
+      </div>
+      <div class="recommend">
+        <img src="./images/recommend.png" alt="">
+        <div class="recommend-txt">
+          <div>
+            <p>
+              首届原创网络文学“星创奖”暨钻石征文联赛由爱奇艺文学、瑶池文化、书香云集、安夏书院、大唐中文网联合主办，集合多方优秀网络文学资深编辑、知名作家，只为甄选最优秀作品！
+            </p>
+            <p>本次征文获奖作品将获得<b>纸质出版</b>、<b>漫画改编</b>、<b>有声改编</b>等全方位包装，并推送<b>爱奇艺影视IP计划</b>！</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="main">
+      <div class="main-wrapper">
+        <div class="zw-type">
+          <img class="title-img" src="./images/zw-type.png" alt="">
+          <div class="zw-txt">
+            <div>
+              <h1>女频征文类型：</h1>
+              <p>都市言情、豪门总裁、古言女强、青春言情、种田经商、年代重生、民国旧影等</p>
+            </div>
+            <div>
+              <h1>男频征文类型：</h1>
+              <p>都市修真、创意都市、霸道玄幻、重生商战、悬疑灵异、透视鉴宝、强者回归等</p>
+            </div>
+          </div>
+        </div>
+        <div class="setting">
+          <img class="title-img" src="./images/setting.png" alt="">
+          <ul class="button-group">
+            <li :class="{'active': awards===1}" @click="awards=1"> 
+              <h1>一甲</h1>
+              <p>3名</p>
+            </li>
+            <li :class="{'active': awards===2}" @click="awards=2">
+              <h1>二甲</h1>
+              <p>7名</p>
+            </li>
+            <li :class="{'active': awards===3}" @click="awards=3">
+              <h1>三甲</h1>
+              <p>30名</p>
+            </li>
+          </ul>
+          <div v-show="awards===1">
+            <img src="./images/first.jpg" alt="">
+          </div>
+          <div v-show="awards===2">
+            <img src="./images/second.jpg" alt="">
+          </div>
+          <div v-show="awards===3">
+            <img src="./images/third.jpg" alt="">
+          </div>
+        </div>
+        <div class="entry">
+          <img class="title-img" src="./images/entry.png" alt="">
+          <div class="entry-txt">
+            <div>
+              <b>方式一：</b>登录安夏书院、大唐中文网征文页面，点击【投稿入口】进行作品上传，只要您的作品符合我们的征稿要求，我们将通过邮件、qq等形式与您联系
+            </div>
+            <div class="entrance">
+              <a href="http://new.axshuyuan.com/#/login">女频【投稿入口】</a>
+              <a href="http://new.datangzww.com/#/login">男频【投稿入口】</a>
+            </div>
+          </div>
+          <div class="entry-two entry-txt">
+            <div>
+              <b>方式二：</b>将正文2万字+大纲以标题【征文大赛】+【书名】+【笔名】的邮件形式发送至编辑的qq邮箱
+              <img width="100%" src="./images/female.png" alt="">
+              <img width="100%" src="./images/male.png" alt="">
+            </div>
+          </div>
+        </div>
+        <div class="schedule">
+          <img class="title-img" src="./images/schedule.png" alt="">
+          <div class="entry-txt schedule-txt">
+            <div>
+              <b>投稿时间：</b>
+              <img src="./images/time.png" alt="">
+              <b>公布结果：</b>
+              <p>2019年1月</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
+  
+  <script src="./js/flexible.debug.js"></script>
+  <script src="./js/vue.min.js"></script>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        awards: 1
+      },
+      methods: {
+        
+      }
+    })
+  </script>
+</body>
+</html>
