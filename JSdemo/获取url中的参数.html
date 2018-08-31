@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>获取url中的参数</title>
+</head>
+<body>
+
+
+  <script>
+    // void 0 === undefined
+    // 方法一 使用字符串拼接匹配字符；
+    /*
+      获取URl中的参数
+      * @para url 
+      * @para key 参数名
+    */
+    function getUrlParam(sUrl, sKey) {
+        var left= sUrl.indexOf("?") + 1
+        var right= sUrl.lastIndexOf("#")
+        var parasString = sUrl.slice(left, right)
+        var paras = parasString.split('&');
+        var parasjson = {}
+        paras.forEach(function (value, index, arr) {
+          var a = value.split('=');
+          parasjson[a[0]] !== undefined ? parasjson[a[0]] = [].concat(parasjson[a[0]], a[1]) : parasjson[a[0]] = a[1];
+        });
+    
+        let result = arguments[1] !== void 0 ? (parasjson[arguments[1]] || '') : parasjson;
+        return result
+    }
+    const url = 'http://www.nowcoder.com?key=1&key=2&key=3&test=4heh111'
+    let result = getUrlParam(url)
+    let result1 = getUrlParam(url, 'key')
+    let result2 = getUrlParam(url, 'test')
+    console.log(result)
+    console.log(result1)
+    console.log(result2)
+    console.log('**************************************')
+
+    // 方式二 使用正则表达式匹配字符，并使用正则Replace方法替换；
+    function getUrlParam2(sUrl, sKey) {
+      var result, Oparam = {};
+      sUrl.replace(/[\?&]?(\w+)=(\w+)/g, function ($0, $1, $2){ 
+        // console.log('$0:' + $0 + "$1:" + $1 + "$2:" + $2);
+        Oparam[$1] === void 0 ? Oparam[$1] = $2 : Oparam[$1] = [].concat(Oparam[$1], $2);
+      });
+      sKey === void 0 || sKey === '' ? result = Oparam : result = Oparam[sKey] || '';
+      return result;
+    }
+    let result3 = getUrlParam2(url)
+    let result4 = getUrlParam2(url, 'key')
+    let result5 = getUrlParam2(url, 'test')
+    console.log(result3)
+    console.log(result4)
+    console.log(result5)
+    console.log('**************************************')
+
+    // 方式三 使用正则表达式匹配字符，并使用正则Exec方法进行组装；
+    function getUrlParam3(sUrl, sKey) {
+      var resObj = {}
+      var reg = /(\w+)=(\w+)/g
+      while (reg.exec(sUrl)) {
+        resObj[RegExp.$1] ? resObj[RegExp.$1] = [].concat(resObj[RegExp.$1], RegExp.$2) : resObj[RegExp.$1] = RegExp.$2
+      }
+      if (sKey) {
+        return (resObj[sKey] ? resObj[sKey] : '')
+      }
+      return resObj
+    }
+    let result6 = getUrlParam3(url)
+    let result7 = getUrlParam3(url, 'key')
+    let result8 = getUrlParam3(url, 'test')
+    console.log(result6)
+    console.log(result7)
+    console.log(result8)
+    console.log('**************************************')
+  </script>
+</body>
+</html>
