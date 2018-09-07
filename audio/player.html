@@ -14,7 +14,7 @@
   <!-- <script src="./js/APlayer.min.js"></script> -->
 </head>
 <body>
-  <div id="app" @touchstart.once="musicPlay()">
+  <div id="app" @touchstart.once="musicPlay">
     <div class="header">
       <img onclick="window.history.back()" src="./images/return@2x.png" alt="">
       <h1>北方有晴天</h1>
@@ -190,9 +190,9 @@
         }
       },
       created: function () {
-        this.$nextTick(function() {
-          this.$refs.audio.play()
-        })
+        // this.$nextTick(function() {
+        //   this.$refs.audio.play()
+        // })
         this.touch = {}
       },
       mounted: function () {
