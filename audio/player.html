@@ -154,12 +154,12 @@
         }
       },
       watch: {
-        currentSong() {
+        currentSong: function() {
           this.$nextTick(function() {
             this.$refs.audio.play()
           })
         },
-        playing(newPlaying) {
+        playing: function(newPlaying) {
           if (!this.songReady) {
             return
           }
@@ -171,7 +171,7 @@
           //   newPlaying ? audio.play() : audio.pause()
           // }, 200)
         },
-        percent(newPercent) {
+        percent: function(newPercent) {
           if (newPercent > 0 && !this.touch.initiated) {
             const barWidth = this.$refs.progressBar.clientWidth - progressBarWidth
             const offsetWidth = newPercent * barWidth
@@ -181,55 +181,56 @@
       },
       created: function () {
         this.$nextTick(function() {
-            this.$refs.audio.play()
-          })
+          this.$refs.audio.play()
+        })
         this.touch = {}
       },
       mounted: function () {
         this.$nextTick(function() {
+          // this.$refs.audio.play()
         })
       },
       computed: {
-        playIcon() {
+        playIcon: function() {
           return this.playing ? 'icon-pause' : 'icon-play'
         },
         // 播放歌曲时的进度 当前时长 / 总时长 （秒）
-        percent() {
+        percent: function() {
           return this.currentTime / this.currentSong.duration
         },
       },
       methods: {
         // 当前播放的时间（秒）
-        updateTime(e) {
+        updateTime: function(e) {
           this.currentTime = e.target.currentTime
           // console.log(this.currentTime)
         },
         // 歌曲播放完，自动下一首
-        end() {
+        end: function() {
           this.next()
         },
         // 上一首
-        prev() {
+        prev: function() {
           if (!this.songReady) {
             return
           }
           // this.songReady = false
         },
         // 下一首
-        next() {
+        next: function() {
           if (!this.songReady) {
             return
           }
           // this.songReady = false
         },
         // 暂停/开始 切换
-        togglePlaying() {
+        togglePlaying: function() {
           if (!this.songReady) {
             return
           }
           this.playing = !this.playing
         },
-        ready() {
+        ready: function() {
           this.songReady = true
           this.playing = true
           // this.$refs.audio.play()
@@ -238,11 +239,11 @@
           const offsetWidth = this.percent * barWidth
           this._offset(offsetWidth)
         },
-        error() {
+        error: function() {
           this.songReady = true
         },
         // 格式化时间
-        format(interval) {
+        format: function(interval) {
           // number | 0 --> 向下取整
           interval = interval | 0
           const minute = (interval / 60) | 0
@@ -250,12 +251,12 @@
           return `${minute}:${second}`
         },
         // 进度条实现
-        progressTouchStart(e) {
+        progressTouchStart: function(e) {
           this.touch.initiated = true
           this.touch.startX = e.touches[0].pageX
           this.touch.left = this.$refs.progress.clientWidth
         },
-        progressTouchMove(e) {
+        progressTouchMove: function(e) {
           if (!this.touch.initiated) {
             return
           }
@@ -263,11 +264,11 @@
           const offsetWidth = Math.min(this.$refs.progressBar.clientWidth - progressBarWidth, Math.max(0, this.touch.left + deltaX))
           this._offset(offsetWidth)
         },
-        progressTouchEnd() {
+        progressTouchEnd: function() {
           this.touch.initiated = false
           this._tirggerPercent()
         },
-        progressClick(e) {
+        progressClick: function(e) {
           const rect = this.$refs.progressBar.getBoundingClientRect()
           const offsetWidth = e.pageX - rect.left
           this._offset(offsetWidth)
@@ -276,7 +277,7 @@
           this._tirggerPercent()
         },
         // 触发滑动圆点，停留的位置
-        _tirggerPercent() {
+        _tirggerPercent: function() {
           const barWidth = this.$refs.progressBar.clientWidth - progressBarWidth
           const percent = this.$refs.progress.clientWidth / barWidth
           const currentTime = this.currentSong.duration * percent
@@ -289,11 +290,11 @@
           // this.$emit('percentChange', percent)
         },
         // 进度条及圆点的移动的位置
-        _offset(offsetWidth) {
+        _offset: function(offsetWidth) {
           this.$refs.progress.style.width = `${offsetWidth}px`
           this.$refs.progressBtn.style['transform'] = `translate3d(${offsetWidth}px, 0, 0)`
         },
-        _pad(num, n = 2) {
+        _pad: function(num, n = 2) {
           let len = num.toString().length
           while (len < n) {
             num = '0' + num
