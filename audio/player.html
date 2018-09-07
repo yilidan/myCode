@@ -6,13 +6,15 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>夜听新语</title>
   <link rel="stylesheet" href="./css/reset.css">
+  <!-- <link rel="stylesheet" href="./css/APlayer.min.css"> -->
   <link rel="stylesheet" href="./css/player.css">
   <script src="./js/rem.js"></script>
   <!-- <script src="../Public/read/js/flexible.debug.js"></script> -->
   <script src="./js/vue.min.js"></script>
+  <!-- <script src="./js/APlayer.min.js"></script> -->
 </head>
 <body>
-  <div id="app">
+  <div id="app" @touchstart.once="musicPlay()">
     <div class="header">
       <img onclick="window.history.back()" src="./images/return@2x.png" alt="">
       <h1>北方有晴天</h1>
@@ -132,14 +134,25 @@
           <span>公众号：xxxx</span>
         </div>
       </div>
-      <audio ref="audio" :src="currentSong.songUrl" @canplay="ready" @error="error" @timeupdate="updateTime" @ended="end"></audio>
-      <!-- <audio ref="audio" src="http://dl.stream.qqmusic.qq.com/C40000481cWs2JgWe0.m4a?guid=1094700970&vkey=BDDA98270F9E10A596CA114F056F84001CCE8B9128DDDCC40854F0662263BEE59423C84107453C19FDE9D1F9D4DB437726BF840999743975&uin=0&fromtag=38"></audio> -->
+      <!-- <div id="aplayer" class="aplayer"></div> -->
+      <audio ref="audio" :src="currentSong.songUrl" @canplay="ready" @error="error" @timeupdate="updateTime" @ended="end" autoplay="autoplay"></audio>
     </section>
   </div>
 
 
 
   <script>
+    // const ap = new APlayer({
+    //   container: document.getElementById('aplayer'),
+    //   autoplay: true,
+    //   audio: [{
+    //       name: '123',
+    //       artist: '123',
+    //       url: 'http://dl.stream.qqmusic.qq.com/C40000481cWs2JgWe0.m4a?guid=6966915648&vkey=E7FE4221AA1A282B5E0E3C35DA56CCBEFB026574122BA0D2F08E51FD02B7B00665D82A0498195F2D32C32FD87400C9A4C1904214A35CDC39&uin=0&fromtag=38',
+    //       cover: 'https://ytxy.51kk.net/static/audio/default/img/imgs/WechatIMG1@2x.png'
+    //   }]
+    // })
+
     const progressBarWidth = 16
 
     var vm = new Vue({
@@ -149,7 +162,7 @@
         songReady: false,
         currentTime: 0,
         currentSong: {
-          songUrl: 'http://dl.stream.qqmusic.qq.com/C40000481cWs2JgWe0.m4a?guid=1094700970&vkey=BDDA98270F9E10A596CA114F056F84001CCE8B9128DDDCC40854F0662263BEE59423C84107453C19FDE9D1F9D4DB437726BF840999743975&uin=0&fromtag=38',
+          songUrl: 'http://dl.stream.qqmusic.qq.com/C40000481cWs2JgWe0.m4a?guid=6966915648&vkey=E7FE4221AA1A282B5E0E3C35DA56CCBEFB026574122BA0D2F08E51FD02B7B00665D82A0498195F2D32C32FD87400C9A4C1904214A35CDC39&uin=0&fromtag=38',
           duration: 223,
         }
       },
@@ -167,9 +180,6 @@
           this.$nextTick(function() {
             newPlaying ? audio.play() : audio.pause()
           })
-          // setTimeout(function() {
-          //   newPlaying ? audio.play() : audio.pause()
-          // }, 200)
         },
         percent: function(newPercent) {
           if (newPercent > 0 && !this.touch.initiated) {
@@ -200,6 +210,10 @@
         },
       },
       methods: {
+        musicPlay: function(){
+          alert(1)
+          this.$refs.audio.play()
+        },
         // 当前播放的时间（秒）
         updateTime: function(e) {
           this.currentTime = e.target.currentTime
