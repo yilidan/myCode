@@ -197,7 +197,7 @@
       },
       mounted: function () {
         this.$nextTick(function() {
-          // this.$refs.audio.play()
+          document.addEventListener("WeixinJSBridgeReady", this.musicPlay())
         })
       },
       computed: {
@@ -211,7 +211,7 @@
       },
       methods: {
         musicPlay: function(){
-          // alert(1)
+          alert(1)
           this.$refs.audio.play()
         },
         // 当前播放的时间（秒）
