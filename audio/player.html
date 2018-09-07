@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>夜听新语</title>
+  <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="./css/player.css">
+  <script src="./js/rem.js"></script>
+  <!-- <script src="../Public/read/js/flexible.debug.js"></script> -->
+  <script src="./js/vue.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <div class="header">
+      <img onclick="window.history.back()" src="./images/return@2x.png" alt="">
+      <h1>北方有晴天</h1>
+    </div>
+    <section class="section">
+      <div class="player">
+        <div class="player-title">
+          <h1>第1集 撕烂你这个贱货</h1>
+          <div class="player-img">
+            <img src="https://fm.51kk.net/cover/ytxy/19/26919-audio-s-large.jpg" alt="">
+            <div class="player-sub">
+              <span>
+                <img src="./images/headset@2x.png" alt="">
+                9007 订阅
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="player-bottom">
+          <div class="progress-wrapper">
+            <div class="progress-bar-wrapper">
+              <div class="progress-bar" ref="progressBar" @click="progressClick">
+                <div class="bar-inner">
+                  <!-- 播放条 -->
+                  <div class="progress" ref="progress"></div>
+                  <!-- 小圆点 -->
+                  <div class="progress-btn-wrapper">
+                    <div class="progress-btn" ref="progressBtn"
+                      @touchstart.prevent="progressTouchStart"
+                      @touchmove.prevent="progressTouchMove"
+                      @touchend="progressTouchEnd"
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="progress-time">
+            <span>{{format(currentTime)}}</span>
+            <span>{{format(currentSong.duration)}}</span>
+          </div>
+          <div class="operators">
+            <div class="i-left">
+              <i @click="prev" class="icon-btn icon-pre-dark"></i>
+            </div>
+            <div class="i-center">
+              <i @click="togglePlaying" :class="playIcon"></i>
+            </div>
+            <div class="i-right">
+              <i @click="next" class="icon-btn icon-next-high"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="player-intro">
+        <h2>北方有晴天</h2>
+        <p>最好的朋友喜欢上我的男人，为了他，将我送进监狱百般折磨。三年后，华丽归来，伤害过我的人，都要付出代价</p>
+        <p class="sub">
+          <b>9004</b>
+          人订阅
+        </p>
+      </div>
+      <div class="player-list">
+        <h3>大家都在听</h3>
+        <ul class="other-list">
+          <li>
+            <a href="">
+              <div class="other-content">
+                <img src="https://fm.51kk.net/cover/ytxy/3/24403-audio-large.jpg" alt="">
+                <dl>
+                  <dt>北方有晴天</dt>
+                  <dd>精品短篇</dd>
+                  <dd>共计：16集</dd>
+                </dl>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="">
+              <div class="other-content">
+                <img src="https://fm.51kk.net/cover/ytxy/3/24403-audio-large.jpg" alt="">
+                <dl>
+                  <dt>北方有晴天</dt>
+                  <dd>精品短篇</dd>
+                  <dd>共计：16集</dd>
+                </dl>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="">
+              <div class="other-content">
+                <img src="https://fm.51kk.net/cover/ytxy/3/24403-audio-large.jpg" alt="">
+                <dl>
+                  <dt>北方有晴天</dt>
+                  <dd>精品短篇</dd>
+                  <dd>共计：16集</dd>
+                </dl>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="message">
+        <div class="message-wx">
+          <span>前往公众号</span>
+        </div>
+        <div class="message-img">
+          <em></em>
+          <div class="qr-code">
+            <img src="https://ytxy.51kk.net/static/audio/default/img/imgs/WechatIMG1@2x.png" alt="">
+          </div>
+          <em></em>
+        </div>
+        <div class="official">
+          <span>公众号：xxxx</span>
+        </div>
+      </div>
+      <audio ref="audio" :src="currentSong.songUrl" @canplay="ready" @error="error" @timeupdate="updateTime" @ended="end"></audio>
+    </section>
+  </div>
+
+
+
+  <script>
+    const progressBarWidth = 16
+
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        playing: false,
+        songReady: false,
+        currentTime: 0,
+        currentSong: {
+          songUrl: 'http://dl.stream.qqmusic.qq.com/C40000481cWs2JgWe0.m4a?guid=1094700970&vkey=BDDA98270F9E10A596CA114F056F84001CCE8B9128DDDCC40854F0662263BEE59423C84107453C19FDE9D1F9D4DB437726BF840999743975&uin=0&fromtag=38',
+          duration: 223,
+        }
+      },
+      watch: {
+        currentSong() {
+          this.$nextTick(function() {
+            this.$refs.audio.play()
+          })
+        },
+        playing(newPlaying) {
+          if (!this.songReady) {
+            return
+          }
+          const audio = this.$refs.audio
+          this.$nextTick(function() {
+            newPlaying ? audio.play() : audio.pause()
+          })
+          // setTimeout(function() {
+          //   newPlaying ? audio.play() : audio.pause()
+          // }, 200)
+        },
+        percent(newPercent) {
+          if (newPercent > 0 && !this.touch.initiated) {
+            const barWidth = this.$refs.progressBar.clientWidth - progressBarWidth
+            const offsetWidth = newPercent * barWidth
+            this._offset(offsetWidth)
+          }
+        }
+      },
+      created: function () {
+        this.touch = {}
+      },
+      mounted: function () {
+        this.$nextTick(function() {
+        })
+      },
+      computed: {
+        playIcon() {
+          return this.playing ? 'icon-pause' : 'icon-play'
+        },
+        // 播放歌曲时的进度 当前时长 / 总时长 （秒）
+        percent() {
+          return this.currentTime / this.currentSong.duration
+        },
+      },
+      methods: {
+        // 当前播放的时间（秒）
+        updateTime(e) {
+          this.currentTime = e.target.currentTime
+          // console.log(this.currentTime)
+        },
+        // 歌曲播放完，自动下一首
+        end() {
+          this.next()
+        },
+        // 上一首
+        prev() {
+          if (!this.songReady) {
+            return
+          }
+          // this.songReady = false
+        },
+        // 下一首
+        next() {
+          if (!this.songReady) {
+            return
+          }
+          // this.songReady = false
+        },
+        // 暂停/开始 切换
+        togglePlaying() {
+          if (!this.songReady) {
+            return
+          }
+          this.playing = !this.playing
+        },
+        ready() {
+          this.songReady = true
+          this.playing = true
+          // this.$refs.audio.play()
+          // const newPercent = this.currentTime / this.currentSong.duration
+          const barWidth = this.$refs.progressBar.clientWidth - progressBarWidth
+          const offsetWidth = this.percent * barWidth
+          this._offset(offsetWidth)
+        },
+        error() {
+          this.songReady = true
+        },
+        // 格式化时间
+        format(interval) {
+          // number | 0 --> 向下取整
+          interval = interval | 0
+          const minute = (interval / 60) | 0
+          const second = this._pad(interval % 60)
+          return `${minute}:${second}`
+        },
+        // 进度条实现
+        progressTouchStart(e) {
+          this.touch.initiated = true
+          this.touch.startX = e.touches[0].pageX
+          this.touch.left = this.$refs.progress.clientWidth
+        },
+        progressTouchMove(e) {
+          if (!this.touch.initiated) {
+            return
+          }
+          const deltaX = e.touches[0].pageX - this.touch.startX
+          const offsetWidth = Math.min(this.$refs.progressBar.clientWidth - progressBarWidth, Math.max(0, this.touch.left + deltaX))
+          this._offset(offsetWidth)
+        },
+        progressTouchEnd() {
+          this.touch.initiated = false
+          this._tirggerPercent()
+        },
+        progressClick(e) {
+          const rect = this.$refs.progressBar.getBoundingClientRect()
+          const offsetWidth = e.pageX - rect.left
+          this._offset(offsetWidth)
+          // 这里当我们点击 progressBtn 的时候，e.offsetX 获取不对
+          // this._offset(e.offsetX)
+          this._tirggerPercent()
+        },
+        // 触发滑动圆点，停留的位置
+        _tirggerPercent() {
+          const barWidth = this.$refs.progressBar.clientWidth - progressBarWidth
+          const percent = this.$refs.progress.clientWidth / barWidth
+          const currentTime = this.currentSong.duration * percent
+          this.$refs.audio.currentTime = currentTime
+          console.log(currentTime)
+          if (!this.playing) {
+            this.togglePlaying()
+          }
+          // 父组件触发该事件
+          // this.$emit('percentChange', percent)
+        },
+        // 进度条及圆点的移动的位置
+        _offset(offsetWidth) {
+          this.$refs.progress.style.width = `${offsetWidth}px`
+          this.$refs.progressBtn.style['transform'] = `translate3d(${offsetWidth}px, 0, 0)`
+        },
+        _pad(num, n = 2) {
+          let len = num.toString().length
+          while (len < n) {
+            num = '0' + num
+            len++
+          }
+          return num
+        }
+      }
+    })
+  </script>
+</body>
+</html>

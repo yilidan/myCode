@@ -1,0 +1,39 @@
+#banner{
+  width: 100%;
+  height: 4.22rem;
+}
+#banner img{
+  width: 100%;
+  height: 4.22rem;
+}
+.read-list{
+  /* padding-top: .2rem; */
+}
+.read-list li{
+  margin-top: .2rem;
+}
+.read-content{
+  display: flex;
+}
+.read-content>img{
+  width: 55%;
+  height: 2.11rem;
+}
+.read-content dl{
+  padding-left: .2rem;
+  font-size: .3rem;
+  color: #333;
+}
+.read-content dl dt{
+  padding-bottom: .5rem;
+}
+.read-content dl dd:nth-child(2){
+  display: inline-block;
+  padding: .04rem .08rem;
+  border: 1px solid #F4979E;
+  border-radius: .1rem;
+  color: #F4979E;
+  text-align: center;
+  font-size: .26rem;
+  margin-bottom: .2rem;
+}
