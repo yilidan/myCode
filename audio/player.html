@@ -153,10 +153,10 @@
     //       cover: 'https://ytxy.51kk.net/static/audio/default/img/imgs/WechatIMG1@2x.png'
     //   }]
     // })
-
-    // function noop() {}
-    // window.MessageChannel = noop
-    // window.setImmediate = noop
+    alert(1)
+    function noop() {}
+    window.MessageChannel = noop
+    window.setImmediate = noop
 
     const progressBarWidth = 16
 
@@ -172,15 +172,15 @@
         }
       },
       watch: {
-        currentSong: function(newSong, oldSong) {
-          setTimeout(function(){
-            this.$refs.audio.src = newSong.url
-            this.$refs.audio.play()
-          }, 100)
-          // this.$nextTick(function() {
-          //   this.$refs.audio.play()
-          // })
-        },
+        // currentSong: function(newSong, oldSong) {
+        //   setTimeout(function(){
+        //     this.$refs.audio.src = newSong.url
+        //     this.$refs.audio.play()
+        //   }, 100)
+        //   // this.$nextTick(function() {
+        //   //   this.$refs.audio.play()
+        //   // })
+        // },
         playing: function(newPlaying) {
           if (!this.songReady) {
             return
@@ -208,6 +208,12 @@
         // this.$nextTick(function() {
         //   this.$refs.audio.play()
         // })
+        this.$watch('currentSong', function() {
+          setTimeout(function() {
+            this.$refs.audio.src = newSong.url
+            this.$refs.audio.play()
+          }, 100)
+        })
         this.touch = {}
       },
       mounted: function () {
