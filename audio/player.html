@@ -14,7 +14,8 @@
   <!-- <script src="./js/APlayer.min.js"></script> -->
 </head>
 <body>
-  <div id="app" @touchstart.once="musicPlay">
+  <!-- <div id="app" @touchstart.once="musicPlay"> -->
+   <div id="app">
     <div class="header">
       <img onclick="window.history.back()" src="./images/return@2x.png" alt="">
       <h1>北方有晴天</h1>
@@ -162,15 +163,19 @@
         songReady: false,
         currentTime: 0,
         currentSong: {
-          songUrl: 'http://dl.stream.qqmusic.qq.com/C40000481cWs2JgWe0.m4a?guid=6966915648&vkey=E7FE4221AA1A282B5E0E3C35DA56CCBEFB026574122BA0D2F08E51FD02B7B00665D82A0498195F2D32C32FD87400C9A4C1904214A35CDC39&uin=0&fromtag=38',
+          songUrl: 'http://dl.stream.qqmusic.qq.com/http://dl.stream.qqmusic.qq.com/C400004emQMs09Z1lz.m4a?guid=4484839404&vkey=56209ADCA04F136D8567A2F1AA21F014972E38AD24B209DD99BE53794F0D04043EF2FF57986A959184FDEC1079FB9612F7FE5605184C6164&uin=0&fromtag=38',
           duration: 223,
         }
       },
       watch: {
-        currentSong: function() {
-          this.$nextTick(function() {
+        currentSong: function(newSong, oldSong) {
+          setTimeout(function(){
+            this.$refs.audio.src = newSong.url
             this.$refs.audio.play()
-          })
+          }, 0)
+          // this.$nextTick(function() {
+          //   this.$refs.audio.play()
+          // })
         },
         playing: function(newPlaying) {
           if (!this.songReady) {
@@ -196,9 +201,9 @@
         this.touch = {}
       },
       mounted: function () {
-        this.$nextTick(function() {
-          document.addEventListener("WeixinJSBridgeReady", this.musicPlay())
-        })
+        // this.$nextTick(function() {
+        //   document.addEventListener("WeixinJSBridgeReady", this.musicPlay())
+        // })
       },
       computed: {
         playIcon: function() {
