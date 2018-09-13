@@ -155,6 +155,12 @@
     // })
 
     const progressBarWidth = 16
+    
+    function noop() {
+    }
+
+    window.MessageChannel = noop
+    window.setImmediate = noop
 
     var vm = new Vue({
       el: '#app',
