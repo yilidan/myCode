@@ -153,14 +153,12 @@
     //       cover: 'https://ytxy.51kk.net/static/audio/default/img/imgs/WechatIMG1@2x.png'
     //   }]
     // })
-
-    const progressBarWidth = 16
     
-    function noop() {
-    }
-
+    function noop() {}
     window.MessageChannel = noop
     window.setImmediate = noop
+
+    const progressBarWidth = 16
 
     var vm = new Vue({
       el: '#app',
@@ -201,6 +199,9 @@
         }
       },
       created: function () {
+        function noop() {}
+        window.MessageChannel = noop
+        window.setImmediate = noop
         // this.$nextTick(function() {
         //   this.$refs.audio.play()
         // })
