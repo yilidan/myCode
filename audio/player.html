@@ -214,9 +214,9 @@
         this.touch = {}
       },
       mounted: function () {
-        // this.$nextTick(function() {
-        //   document.addEventListener("WeixinJSBridgeReady", this.musicPlay())
-        // })
+        this.$nextTick(function() {
+          document.addEventListener("WeixinJSBridgeReady", this.musicPlay())
+        })
       },
       computed: {
         playIcon: function() {
