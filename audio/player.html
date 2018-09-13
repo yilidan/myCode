@@ -10,7 +10,8 @@
   <link rel="stylesheet" href="./css/player.css">
   <script src="./js/rem.js"></script>
   <!-- <script src="../Public/read/js/flexible.debug.js"></script> -->
-  <script src="./js/vue.min.js"></script>
+  <!-- <script src="./js/vue.min.js"></script> -->
+  <script src="./js/vue2.0.js"></script>
   <!-- <script src="./js/APlayer.min.js"></script> -->
 </head>
 <body>
@@ -153,7 +154,7 @@
     //       cover: 'https://ytxy.51kk.net/static/audio/default/img/imgs/WechatIMG1@2x.png'
     //   }]
     // })
-    alert(3)
+    alert(1)
     // function noop() {}
     // window.MessageChannel = noop
     // window.setImmediate = noop
@@ -173,25 +174,26 @@
       },
       watch: {
         currentSong: function(newSong, oldSong) {
-          setTimeout(function(){
+          // setTimeout(function(){
+          //   this.$refs.audio.src = newSong.url
+          //   this.$refs.audio.play()
+          // }, 0)
+          this.$nextTick(function() {
             this.$refs.audio.src = newSong.url
             this.$refs.audio.play()
-          }, 0)
-          // this.$nextTick(function() {
-          //   this.$refs.audio.play()
-          // })
+          })
         },
         playing: function(newPlaying) {
           if (!this.songReady) {
             return
           }
           const audio = this.$refs.audio
-          // this.$nextTick(function() {
-          //   newPlaying ? audio.play() : audio.pause()
-          // })
-          setTimeout(function() {
+          this.$nextTick(function() {
             newPlaying ? audio.play() : audio.pause()
-          }, 0)
+          })
+          // setTimeout(function() {
+          //   newPlaying ? audio.play() : audio.pause()
+          // }, 0)
         },
         percent: function(newPercent) {
           if (newPercent > 0 && !this.touch.initiated) {
@@ -212,9 +214,9 @@
         this.touch = {}
       },
       mounted: function () {
-        // this.$nextTick(function() {
-        //   document.addEventListener("WeixinJSBridgeReady", this.musicPlay())
-        // })
+        this.$nextTick(function() {
+          document.addEventListener("WeixinJSBridgeReady", this.musicPlay())
+        })
       },
       computed: {
         playIcon: function() {
