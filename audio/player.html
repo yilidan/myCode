@@ -179,14 +179,14 @@
           m.removeEventListener('touchend', this.firstPlay)
         },
         currentSong: function(newSong, oldSong) {
-          // setTimeout(function(){
-          //   this.$refs.audio.src = newSong.url
-          //   this.$refs.audio.play()
-          // }, 0)
-          this.$nextTick(function() {
+          setTimeout(function(){
             this.$refs.audio.src = newSong.url
             this.$refs.audio.play()
-          })
+          }, 1000)
+          // this.$nextTick(function() {
+          //   this.$refs.audio.src = newSong.url
+          //   this.$refs.audio.play()
+          // })
         },
         playing: function(newPlaying) {
           if (!this.songReady) {
@@ -235,7 +235,7 @@
         },
       },
       methods: {
-        firstPlay () {
+        firstPlay: function(){
           let music = document.querySelector('#music-audio')
           music.play()
           if (music.src !== '') {
