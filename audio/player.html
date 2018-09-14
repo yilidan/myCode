@@ -10,8 +10,8 @@
   <link rel="stylesheet" href="./css/player.css">
   <script src="./js/rem.js"></script>
   <!-- <script src="../Public/read/js/flexible.debug.js"></script> -->
-  <!-- <script src="./js/vue.min.js"></script> -->
-  <script src="./js/vue2.0.js"></script>
+  <script src="./js/vue.min.js"></script>
+  <!-- <script src="./js/vue2.0.js"></script> -->
   <!-- <script src="./js/APlayer.min.js"></script> -->
 </head>
 <body>
@@ -137,7 +137,7 @@
         </div>
       </div>
       <!-- <div id="aplayer" class="aplayer"></div> -->
-      <audio ref="audio" :src="currentSong.songUrl" @canplay="ready" @error="error" @timeupdate="updateTime" @ended="end"></audio>
+      <audio id="music-audio" ref="audio" :src="currentSong.songUrl" @canplay="ready" @error="error" @timeupdate="updateTime" @ended="end"></audio>
     </section>
   </div>
 
@@ -154,7 +154,7 @@
     //       cover: 'https://ytxy.51kk.net/static/audio/default/img/imgs/WechatIMG1@2x.png'
     //   }]
     // })
-    alert(9)
+
     // function noop() {}
     // window.MessageChannel = noop
     // window.setImmediate = noop
@@ -170,9 +170,14 @@
         currentSong: {
           songUrl: 'http://dl.stream.qqmusic.qq.com/http://dl.stream.qqmusic.qq.com/C400004emQMs09Z1lz.m4a?guid=4484839404&vkey=56209ADCA04F136D8567A2F1AA21F014972E38AD24B209DD99BE53794F0D04043EF2FF57986A959184FDEC1079FB9612F7FE5605184C6164&uin=0&fromtag=38',
           duration: 223,
-        }
+        },
+        stop: false
       },
       watch: {
+        stop () {
+          let m = document.querySelector('#app')
+          m.removeEventListener('touchend', this.firstPlay)
+        },
         currentSong: function(newSong, oldSong) {
           // setTimeout(function(){
           //   this.$refs.audio.src = newSong.url
@@ -214,9 +219,11 @@
         this.touch = {}
       },
       mounted: function () {
-        this.$nextTick(function() {
-          document.addEventListener("WeixinJSBridgeReady", this.musicPlay())
-        })
+        let m = document.querySelector('#app')
+        m.addEventListener('touchend', this.firstPlay)
+        // this.$nextTick(function() {
+        //   document.addEventListener("WeixinJSBridgeReady", this.musicPlay())
+        // })
       },
       computed: {
         playIcon: function() {
@@ -228,6 +235,13 @@
         },
       },
       methods: {
+        firstPlay () {
+          let music = document.querySelector('#music-audio')
+          music.play()
+          if (music.src !== '') {
+            this.stop = true
+          }
+        },
         musicPlay: function(){
           this.$refs.audio.play()
         },
