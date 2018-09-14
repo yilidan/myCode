@@ -176,7 +176,7 @@
       watch: {
         stop: function() {
           let m = document.querySelector('#app')
-          m.removeEventListener('touchend', this.firstPlay)
+          m.removeEventListener('touchstart', this.firstPlay)
         },
         currentSong: function(newSong, oldSong) {
           setTimeout(function(){
@@ -220,7 +220,7 @@
       },
       mounted: function () {
         let m = document.querySelector('#app')
-        m.addEventListener('touchend', this.firstPlay)
+        m.addEventListener('touchstart', this.firstPlay)
         // this.$nextTick(function() {
         //   document.addEventListener("WeixinJSBridgeReady", this.musicPlay())
         // })
