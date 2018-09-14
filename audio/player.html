@@ -174,7 +174,7 @@
         stop: false
       },
       watch: {
-        stop () {
+        stop: function() {
           let m = document.querySelector('#app')
           m.removeEventListener('touchend', this.firstPlay)
         },
