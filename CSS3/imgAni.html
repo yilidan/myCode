@@ -18,24 +18,30 @@
       background-image: url('./img/img0.png');
       background-repeat: no-repeat;
       background-position: center;
-      animation:mymove 1s linear infinite;
+      /* animation:mymove 1s linear infinite; */
       /* background-size: 157px 203px; */
     }
+    
     @keyframes mymove
     {
-      0% {
-        /* opacity: 0; */
+      /* 0% {
         background-image: url('./img/img0.png');
         background-size: 157px 203px;
       }
       50% {
-        /* opacity: 1; */
         background-image: url('./img/img1.png');
         background-size: 185px 220px;
       }
       100% {
-        /* opacity: 0; */
         background-image: url('./img/img0.png');
+        background-size: 157px 203px;
+      } */
+      from {
+        background-image: url('./img/img0.png');
+        background-size: 157px 203px;
+      }
+      to {
+        background-image: url('./img/img1.png');
         background-size: 157px 203px;
       }
     }
@@ -44,9 +50,47 @@
 </head>
 <body>
   <div id="app">
-    <div class="test-img">
-      
-    </div>
+    <!-- <div class="test-img"></div> -->
+    <img v-show="show" src="./img/img0.png" alt="">
+    <img v-show="!show" src="./img/img1.png" alt="">
+    <p @click="qh">切换</p>
   </div>
+
+  <script src="../JSdemo/js/vue.js"></script>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        show: true
+      },
+      computed: {
+        // show1() {
+        //   setInterval(function(){
+        //     return this.show = !this.show
+        //   }, 1000);
+        // }
+      },
+      mounted () {
+        // this.$nextTick(function() {
+          setInterval(function(){
+            // this.show = !this.show
+            vm.qh()
+            // console.log(this.show)
+          }, 2000);
+        // })
+      },
+      methods: {
+        qh() {
+          this.show = !this.show
+        }
+        // test() {
+        //   alert(1)
+        //   const timer = setInterval(function() {
+        //     this.show = !this.show
+        //   }, 100)
+        // }
+      }
+    })
+  </script>
 </body>
 </html>
