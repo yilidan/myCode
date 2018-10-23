@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>vue-transition过渡效果</title>
+  <link rel="stylesheet" href="./css/animate.css">
+  <style>
+    div{
+      font-size: 20px;
+    }
+    .fade-enter, .fade-leave-to{
+      opacity: 0;
+    }
+    .fade-enter-active, .fade-leave-active{
+      transition: all 1s;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <!-- <transition name="fade">
+      <div v-show="show">css-transition</div>
+    </transition>
+    <button @click="showBtn">切换</button> -->
+
+    <!-- <transition
+      name="fade1"
+      appear
+      enter-active-class="animated bounceIn"
+      leave-active-class="animated bounceInDown"
+      appear-active-class="animated bounceIn">
+      <div v-show="show">css-transition</div>
+    </transition>
+      <button @click="showBtn">切换</button> -->
+
+      <!-- JS中的动画效果 -->
+      <transition 
+        name="fade2"
+        @before-enter="handleBeforeEnter"
+        @enter="handleEnter"
+        @after-enter="handleAfterEnter">
+        <div v-show="show">css-transition</div>
+      </transition>
+      <button @click="showBtn">切换</button>
+
+  </div>
+
+
+
+  <script src="./js/vue.js"></script>
+  <script src="./js/velocity.min.js"></script>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        show: true
+      },
+      methods: {
+        showBtn() {
+          this.show = !this.show;
+        },
+        handleBeforeEnter(el) {
+
+        },
+        handleEnter(el, done) {
+
+        },
+        handleAfterEnter(el) {
+
+        }
+      }
+    })
+  </script>
+</body>
+</html>
