@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>播购直播</title>
+    <link href="../src/css/download.css" rel="stylesheet"/>
+    <style media="screen">
+        *{margin:0;padding:0;}
+        body{font-family:Arial,"Microsoft YaHei";background-color: #180027;}
+        .mar-l{padding-left:.46rem;}
+        .share_bg{width:100%;vertical-align:top;}
+        #tips{position:absolute;top:0;right:.9rem;z-index:100;display:block;display:none;width:4.3rem;height:1.6rem;}
+        .flexdbox{position:fixed;bottom:0;left:0;width:100%;}
+        .flexdbox>img{width:7.22rem;height:1.98rem;}
+        .downloadbox{overflow:hidden;padding:.26rem .46rem;background:#333945;color:#fff;opacity:.8;}
+        .logo,.logo img{float:left;}
+        .logo img{width:1.2rem;height:1.2rem;}
+        .logo>div{float:left;margin-top:.08rem;margin-left:.2rem;font-size:.4rem;}
+        .btn{margin-bottom:.2rem;text-align:center;}
+        .btn img{width:9.34rem;height:1.46rem;}
+        .name{padding-bottom:.4rem;color:#d53e6d;font-size:.37rem;}
+        .name,.titleimg{display:none;}
+        /*适配iPhone X*/
+        @media only screen and (device-width: 375px) and (device-height: 812px) and(-webkit-device-pixel-ratio: 3){
+            /*.flexdbox{
+                bottom:5rem;
+            }*/
+            /*.btn{
+                margin-bottom: 2rem;
+            }*/
+        }
+    </style>
+</head>
+<body>
+    <div class="browserbox">
+        <img class="share_bg" src="../src/img/share/3.jpg" alt="">
+        <div class="dalog">
+            <img id="tips" src="../src/img/share/1_07.png" alt="">
+        </div>
+        <div class="flexdbox">
+            <div class="btn" id="JdownApp">
+                <img src="../src/img/share/download-line.png" alt="">
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="../src/lib/jquery/jquery.min.js"></script>
+    <script src="../src/lib/flexibel/flexible.debug.js"></script>
+    <script type="text/javascript">
+        var sUserAgent = navigator.userAgent.toLowerCase();
+        var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+        var bIsAndroid = sUserAgent.match(/android/i) == "android";
+
+        var download = {
+             init: function () {
+                 var higheruserid=this.getQueryString("higheruserid");
+                 var heights = document.documentElement.clientHeight
+                //  alert(heights);
+                 $(".browserbox").height(heights);
+                 download.is_weixin();
+             },
+             godown: function () {
+                 if (bIsIphoneOs) {
+                     var last = Date.now();
+                     var ifrSrc = 'https://share.boogoo.tv/apple-app-site-association';
+                     var ifr = document.createElement('iframe');
+                     ifr.src = ifrSrc;
+                     ifr.style.display = 'none';
+                     document.body.appendChild(ifr);
+                     // window.location = 'apple-app-site-association';
+                     setTimeout(function () {
+                         document.body.removeChild(ifr);
+                         //setTimeout回小于2000一般为唤起失败
+                         if (Date.now() - last < 1000) {
+                             location.href = "https://itunes.apple.com/cn/app/%E6%92%AD%E8%B4%AD%E7%9B%B4%E6%92%AD/id1193113646?mt=8"
+                         }
+                     }, 500);
+                 }
+                 if (bIsAndroid) {
+                    location.href = "http://sj.qq.com/myapp/detail.htm?apkName=com.app.boogoo";
+                    //  var last = Date.now();
+                    //  var ifrSrc = 'boogoo://open.app';
+                    //  var ifr = document.createElement('iframe');
+                    //  ifr.src = ifrSrc;
+                    //  ifr.style.display = 'none';
+                    //  document.body.appendChild(ifr);
+                    //  setTimeout(function () {
+                    //      document.body.removeChild(ifr);
+                    //      //setTimeout回小于2000一般为唤起失败
+                    //      if (Date.now() - last < 2000) {
+                    //          location.href = "https://file.boogoo.tv/boogoo_android_v2.0.1_boogoo.apk";
+                    //      }
+                    //  }, 1000);
+                 }
+             },
+             is_weixin: function () {
+                 var ua = navigator.userAgent.toLowerCase();
+                 if (ua.match(/MicroMessenger/i) == "micromessenger") {
+                     //在微信浏览器
+                     if(bIsIphoneOs){
+                         $("#JdownApp").click(function () {
+                             $("#tips").show();
+                         })
+                     }
+                     if(bIsAndroid){
+                         $("#JdownApp").click(function () {
+                             download.godown();
+                         })
+                     }
+                 } else {
+                     //不在微信浏览器
+                     $("#JdownApp").click(function () {
+                         download.godown();
+                     })
+                 }
+             },
+             getQueryString: function (name) {
+                 var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+                 var r = window.location.search.substr(1).match(reg);
+                 if (r != null)
+                     return unescape(r[2]);
+                 return null;
+             },
+
+        }
+        download.init();
+    </script>
+</body>
+</html>

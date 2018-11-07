@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>实现跑马灯效果</title>
+  <style>
+    *{
+      padding: 0;
+      margin: 0;
+    }
+    .box{
+      overflow: hidden;
+      width: 300px;
+      white-space: nowrap;
+      margin-left: 200px;
+      margin-top: 100px;
+      color: #FFF;
+      background: #000;
+    }
+    .content p{
+      display: inline-block;
+    }
+    .content p.padding{
+      padding-right: 300px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="box">
+      <div class="content">
+        <p class="text">
+          文字如果超出了宽度自动向左滚动文字如果超出了宽度自动向左滚动。
+        </p>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    window.onload = function() {
+      let box = document.querySelector('.box')
+      let content = document.querySelector('.content')
+      let text = document.querySelector('.text')
+      let textWidth = text.offsetWidth
+      let boxWidth = box.offsetWidth
+      // function checkScrollLeft() {
+        if (boxWidth> textWidth) return false
+        content.innerHTML += content.innerHTML
+        text.classList.add('padding')
+        // 更新
+        // textWidth = document.querySelector('.text').offsetWidth
+        toScrollLeft()
+      // }
+
+      // checkScrollLeft()
+
+      function toScrollLeft() {
+        if (textWidth > box.scrollLeft) {
+          box.scrollLeft++
+          // setTimeout(function() {
+          //   toScrollLeft()
+          // }, 18)
+          requestAnimationFrame(toScrollLeft)
+        }
+      }
+
+    }
+  </script>
+</body>
+</html>

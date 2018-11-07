@@ -1,0 +1,105 @@
+
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="一道CSS题目" />
+<meta name="keywords" content="CSS, 题目, 布局" />
+<meta name="author" content="张鑫旭, zhangxinxu" />
+<title>一道CSS题目</title>
+<style>
+body{font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif; }
+style[contenteditable], pre{display:block; white-space: pre-wrap; padding: 10px; border: 1px solid #ddd;}
+style[contenteditable]{min-height:100px;}
+</style>
+<style id="style">
+h2 {
+    font-size: 52px;
+    font-weight: bold;
+    color: #000;
+}
+p {
+    font-size: 12px;
+    color: #333;
+}
+</style>
+</head>
+
+<body>
+<h3>已有CSS：</h3>
+<pre id="pre">h2 {
+    font-size: 52px;
+    font-weight: bold;
+    color: #000;
+}
+p {
+    font-size: 12px;
+    color: #333;
+}
+</pre>
+<h3>你的CSS</h3>
+<style id="input" contenteditable="true">h2 {
+  display: table;
+}
+p {
+  display: table-caption;
+  caption-side: bottom;
+}
+</style>
+<h2>
+IPHONE XR<br>
+IS THE FUCKING<br>
+BEST EVER MADE
+<p>iPhone XR has not been authorized as required by the rules of the Federal Communications Commission. iPhone XR is not, and may not be, offered for sale or lease, or sold or leased, until authorization is obtained.</p>
+</h2>
+<div>改变H2字号大小查看动态变化：<input type="range" min="20" max="60" value="52" size="50" align="absmiddle"></div>
+
+
+
+<script>
+document.querySelector('input').addEventListener('input', function () {
+	pre.innerHTML = pre.innerHTML.replace(/h2\s*{([\W\w]*?)size:\s*\d+px/, 'h2{\n    font-size: ' + this.value + 'px');
+	style.innerHTML = pre.innerHTML;
+});
+
+// 自动写入答案
+if (location.href.indexOf('type=1') != -1) {
+	input.innerHTML = `h2 {
+    width: min-content;
+    white-space: nowrap;
+}
+p {
+    white-space: normal;
+}`;
+} else if (location.href.indexOf('type=2') != -1) {
+  // 这种写法兼容性好
+	input.innerHTML = `h2 {
+    display: table;
+}
+p {
+    display: table-caption;
+    caption-side: bottom;
+}`;
+}
+</script>
+<!-- 下面是统计代码，忽略 -->
+<script>
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-11205167-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?48d8e938d5365a4cb0fc9e65d945018e";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</body>
+</html>
