@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>移动端适配rem布局</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .box {
+      width: 2rem;
+      height: 2rem;
+      border: 1px solid #e4393c;
+    }
+    @media screen and (max-width: 321px) {
+      body {
+        font-size: 16px
+      }
+    }
+    @media screen and (min-width: 321px) and (max-width:400px) {
+      body {
+        font-size: 17px
+      }
+    }
+    @media screen and (min-width: 400px) {
+      body {
+        font-size: 19px
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="box">
+      <span>
+        文字来一点
+      </span>
+    </div>
+  </div>
+
+
+  
+  <script>
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+  </script>
+</body>
+</html>
