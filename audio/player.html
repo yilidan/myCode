@@ -137,7 +137,7 @@
         </div>
       </div>
       <!-- <div id="aplayer" class="aplayer"></div> -->
-      <audio id="music-audio" ref="audio" :src="currentSong.songUrl" @play="ready" @error="error" @timeupdate="updateTime" @ended="end"></audio>
+      <audio id="music-audio" ref="audio" :src="currentSong.songUrl" @playing="ready" @error="error" @timeupdate="updateTime" @ended="end"></audio>
     </section>
   </div>
 
