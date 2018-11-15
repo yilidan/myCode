@@ -218,6 +218,7 @@
 
         this.touch = {}
 
+        // audio在微信中自动播放
         document.addEventListener("WeixinJSBridgeReady", function () { 
           document.getElementById('music-audio').play()
         }, false)
@@ -226,7 +227,7 @@
         // let m = document.querySelector('#app')
         // m.addEventListener('touchend', this.firstPlay)
         this.$nextTick(function() {
-          document.addEventListener("WeixinJSBridgeReady", this.musicPlay())
+          // document.addEventListener("WeixinJSBridgeReady", this.musicPlay())
         })
       },
       computed: {
