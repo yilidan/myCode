@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>vue实现Header渐隐渐显效果</title>
+  <style>
+    *{
+      padding: 0;
+      margin: 0;
+    }
+    .header{
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 9;
+      height: 60px;
+      line-height: 60px;
+      text-align: center;
+      background-color: #e4393c;
+    }
+    .content{
+      width: 100%;
+      height: 1000px;
+    }
+    .banner{
+      width: 100%;
+      height: 200px;
+      background-color: blue;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="content">
+      <div class="header" v-show="headerShow" :style="headerStyle">
+        <span>头部</span>
+      </div>
+      <div class="banner"></div>
+    </div>
+  </div>
+
+
+  <script src="./js/vue.js"></script>
+  <script>
+    var vm = new Vue({
+      el: "#app",
+      data: {
+        headerShow: false,
+        headerStyle: {
+          opacity: 0
+        }
+      },
+      created () {
+        
+      },
+      mounted () {
+        this.$nextTick(function() {
+          window.addEventListener('scroll', this.handleScroll)
+        })
+      },
+      methods: {
+        handleScroll() {
+          const top = document.documentElement.scrollTop
+          console.log(top)
+          if (top > 60) {
+            let opacity = top / 140
+            opacity = opacity > 1 ? 1 : opacity
+            this.headerStyle = {
+              opacity: opacity
+            }
+            this.headerShow = true
+          } else {
+            this.headerShow = false
+          }
+        }
+      },
+      activated () {
+        
+      }
+    })
+  </script>
+</body>
+</html>
