@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>gold效果</title>
+  <style>
+    *{
+      padding: 0;
+      margin: 0;
+    }
+    .box{
+      width: 200px;
+      height: 150px;
+      background-color: #e4393c;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 10px;
+    }
+    .box i{
+      display: inline-block;
+      width: 66px;
+      height: 60px;
+      background: url('./img/gold.png') no-repeat center;
+      position: absolute;
+      
+    }
+    .box-gold{
+      animation: goldani 2s infinite;
+    }
+    .box .box-gold1{
+      top: 0;
+      right: 0;
+      animation: goldani1 3s infinite;
+      opacity: 0;
+    }
+    
+    @keyframes goldani {
+      from{
+        top: 0;
+        left: 0;
+        transform: scale(.5);
+      }
+      to{
+        top: -120px;
+        left: -60px;
+        transform: scale(.8);
+        /* opacity: 0; */
+      }
+    }
+    @keyframes goldani1 {
+      from{
+        transform: scale(.5) rotate(0deg);
+      }
+      to{
+        top: -120px;
+        right: -60px;
+        transform: scale(.8) rotate(270deg);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="box">
+      <i class="box-gold"></i>
+      <i class="box-gold1"></i>
+    </div>
+  </div>
+</body>
+</html>
