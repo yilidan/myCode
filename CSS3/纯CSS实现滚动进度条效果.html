@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>不可思议的纯 CSS 滚动进度条效果</title>
+  <link rel="stylesheet" href="./reset.css">
+  <style>
+    .text{
+      line-height: 1.5;
+      padding: 10px;
+      font-size: 28px;
+      color: #333;
+    }
+    body{
+      background-image: linear-gradient(to right top, #ffcc00 50%, #eee 50%);
+      background-size: 100% calc(100% - 100vh + 5px);
+      background-repeat: no-repeat;
+    }
+    body::after{
+      content: "";
+      position: fixed;
+      top: 5px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #fff;
+      z-index: -1;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="text">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. At est, quasi maxime tenetur quae asperiores temporibus quam, quaerat blanditiis iusto veniam nam, nobis dolore quibusdam recusandae quos nostrum assumenda aliquid!Lorem ipsum dolor sit amet consectetur adipisicing elit. At est, quasi maxime tenetur quae asperiores temporibus quam, quaerat blanditiis iusto veniam nam, nobis dolore quibusdam recusandae quos nostrum assumenda aliquid!Lorem ipsum dolor sit amet consectetur adipisicing elit. At est, quasi maxime tenetur quae asperiores temporibus quam, quaerat blanditiis iusto veniam nam, nobis dolore quibusdam recusandae quos nostrum assumenda aliquid!Lorem ipsum dolor sit amet consectetur adipisicing elit. At est, quasi maxime tenetur quae asperiores temporibus quam, quaerat blanditiis iusto veniam nam, nobis dolore quibusdam recusandae quos nostrum assumenda aliquid!Lorem ipsum dolor sit amet consectetur adipisicing elit. At est, quasi maxime tenetur quae asperiores temporibus quam, quaerat blanditiis iusto veniam nam, nobis dolore quibusdam recusandae quos nostrum assumenda aliquid!Lorem ipsum dolor sit amet consectetur adipisicing elit. At est, quasi maxime tenetur quae asperiores temporibus quam, quaerat blanditiis iusto veniam nam, nobis dolore quibusdam recusandae quos nostrum assumenda aliquid!Lorem ipsum dolor sit amet consectetur adipisicing elit. At est, quasi maxime tenetur quae asperiores temporibus quam, quaerat blanditiis iusto veniam nam, nobis dolore quibusdam recusandae quos nostrum assumenda aliquid!Lorem ipsum dolor sit amet consectetur adipisicing elit. At est, quasi maxime tenetur quae asperiores temporibus quam, quaerat blanditiis iusto veniam nam, nobis dolore quibusdam recusandae quos nostrum assumenda aliquid!Lorem ipsum dolor sit amet consectetur adipisicing elit. At est, quasi maxime tenetur quae asperiores temporibus quam, quaerat blanditiis iusto veniam nam, nobis dolore quibusdam recusandae quos nostrum assumenda aliquid!
+    </div>
+  </div>
+
+
+
+</body>
+</html>
