@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>canvas实现雪花3d效果</title>
+  <link rel="stylesheet" href="./css/reset.css">
+  <style>
+    body{
+      width: 100%;
+      height: 1200px;
+      background-color: #780B20;
+    }
+    .snow{
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 10000;
+      transform: translate3d(0, 0, 0);
+      width: 100%;
+      height: 100%;
+      /* pointer-events: none; */
+    }
+    h1{
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h1>雪花效果</h1>
+  </div>
+
+
+
+  <script src="./js/canvas/ThreeCanvas.js"></script>
+  <script src="./js/canvas/Snow.js"></script>
+  <script>
+    var SCREEN_WIDTH = window.innerWidth;
+    var SCREEN_HEIGHT = window.innerHeight;
+    var container;
+    var particle;
+    var camera; //相机
+    var scene; //场景
+    var renderer;
+    var mouseX = 0;
+    var mouseY = 0;
+    var windowHalfX = window.innerWidth / 2;
+    var windowHalfY = window.innerHeight / 2;
+    var particles = []; 
+    var particleImage = new Image();//THREE.ImageUtils.loadTexture( "img/ParticleSmoke.png" );
+    particleImage.src = 'js/canvas/ParticleSmoke.png';
+    // particleImage.src = 'images/snow.png';
+
+    function init() {
+      container = document.createElement('div');
+      container.className = 'snow';
+      document.body.appendChild(container);
+      camera = new THREE.PerspectiveCamera( 75, SCREEN_WIDTH / SCREEN_HEIGHT, 1, 10000 );
+      camera.position.z = 1000;
+      scene = new THREE.Scene();
+      scene.add(camera);
+      renderer = new THREE.CanvasRenderer();
+      renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+      console.log(SCREEN_WIDTH, SCREEN_HEIGHT);
+      var material = new THREE.ParticleBasicMaterial( { map: new THREE.Texture(particleImage) } );
+        
+      for (var i = 0; i < 200; i++) {
+        particle = new Particle3D( material);
+        particle.position.x = Math.random() * 2000 - 1000;
+        particle.position.y = Math.random() * 2000 - 1000;
+        particle.position.z = Math.random() * 2000 - 1000;
+        particle.scale.x = particle.scale.y =  1;
+        scene.add( particle );
+        particles.push(particle); 
+      }
+
+      container.appendChild( renderer.domElement );
+      setInterval( loop, 1000 / 60 );
+    }
+
+    function loop() {
+    for(var i = 0; i < particles.length; i++)
+      {
+        var particle = particles[i]; 
+        particle.updatePhysics(); 
+        with(particle.position)
+        {
+          if(y < -1000) y += 2000; 
+          if(x > 1000) x -= 2000; 
+          else if(x <- 1000) x += 2000; 
+          if(z > 1000) z -= 2000; 
+          else if(z <- 1000) z += 2000; 
+        }				
+      }
+
+      camera.position.x += (mouseX - camera.position.x ) * 0.05;
+      camera.position.y += (- mouseY - camera.position.y ) * 0.05;
+      camera.lookAt(scene.position); 
+      renderer.render(scene, camera);
+    }
+    init();
+  </script>
+</body>
+</html>
