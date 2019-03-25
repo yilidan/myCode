@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>纯CSS实现打字动画效果</title>
+  <link rel="stylesheet" href="./reset.css">
+  <style>
+    .text{
+      width: 23em;
+      height: 1.25em;
+      border-right: 2px solid transparent;
+      font-family: Consolas, Monaco;
+      word-break: break-all;
+      overflow: hidden;
+      animation: typing 3.5s steps(37, end), blink-caret .75s step-end infinite;
+    }
+    /* 打印效果 */
+    @keyframes typing {
+        from { width: 0; }
+        to { width: 23em; }
+    }
+    /* 光标闪啊闪 */
+    @keyframes blink-caret {
+      from, to { box-shadow: 1px 0 0 0 transparent; }
+      50% { box-shadow: 1px 0 0 0; }
+    }
+
+
+
+    @supports (display:none) {
+      dot {
+        display: inline-block; 
+        width: 3ch;
+        text-indent: -1ch;
+        vertical-align: bottom; 
+        overflow: hidden;
+        animation: dot 3s infinite step-start both;
+        font-family: Consolas, Monaco, monospace;
+      }
+    }
+    @keyframes dot {
+      33% { text-indent: 0; }
+      66% { text-indent: -2ch; }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <p class="text">纯CSS实现打字动画效果，纯CSS实现打字动画效果</p>
+    
+    <!-- CSS3 ch单位等宽字体下的字符打点loading动画demo -->
+    <p class="loading-text">订单提交中<dot>...</dot></p>
+  </div>
+  
+</body>
+</html>

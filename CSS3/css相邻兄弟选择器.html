@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>css相邻兄弟选择器</title>
+  <link rel="stylesheet" href="./reset.css">
+  <style>
+    .demo1{
+      width: 80%;
+      margin: 0 auto;
+      margin-top: 20px;
+      border: 1px solid #e4393c;
+    }
+    .demo1 li{
+      line-height: 2;
+      text-align: center;
+    }
+    .demo1 li + li{
+      border-top: 1px solid #e4393c;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <ul class="demo1">
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+      <li>6</li>
+    </ul>
+    <a href="https://www.zhangxinxu.com/wordpress/2019/03/nth-last-child-css-layout/">参考链接：https://www.zhangxinxu.com/wordpress/2019/03/nth-last-child-css-layout</a>
+  </div>
+</body>
+</html>
