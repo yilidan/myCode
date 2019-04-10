@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>支付宝支付demo</title>
+</head>
+<body>
+  <div id="app">
+    <button id="J_btn" class="btn btn-default">支付</button>
+  </div>
+
+
+
+  <script src="https://gw.alipayobjects.com/as/g/h5-lib/alipayjsapi/3.1.1/alipayjsapi.inc.min.js"></script>
+  <script>
+    var btn = document.querySelector('#J_btn');
+
+    // 支付宝交易号唤起支付
+    var btn = document.querySelector('#J_btn');
+    btn.addEventListener('click', function(){
+      ap.tradePay({
+        tradeNO: '201802282100100427058809844'
+      }, function(res){
+        ap.alert(res.resultCode);
+      });
+    });
+
+    // 支付宝订单字符串唤起支付
+    // btn.addEventListener('click', function(){
+    //   ap.tradePay({
+    //     orderStr: 'timestamp=2016-12-27%2018%3A00%3A00&method=alipay.trade.app.pay&app_id=2014073000007292......'
+    //   }, function(res){
+    //     ap.alert(res.resultCode);
+    //   });
+    // });
+
+
+  </script>
+</body>
+</html>
