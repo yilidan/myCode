@@ -18,24 +18,23 @@
     var btn = document.querySelector('#J_btn');
 
     // 支付宝交易号唤起支付
-    var btn = document.querySelector('#J_btn');
-    btn.addEventListener('click', function(){
-      ap.tradePay({
-        tradeNO: '201802282100100427058809844'
-      }, function(res){
-        ap.alert(res.resultCode);
-      });
-    });
-
-    // 支付宝订单字符串唤起支付
+    // var btn = document.querySelector('#J_btn');
     // btn.addEventListener('click', function(){
     //   ap.tradePay({
-    //     orderStr: 'timestamp=2016-12-27%2018%3A00%3A00&method=alipay.trade.app.pay&app_id=2014073000007292......'
+    //     tradeNO: '201802282100100427058809844'
     //   }, function(res){
     //     ap.alert(res.resultCode);
     //   });
     // });
 
+    // 支付宝订单字符串唤起支付
+    btn.addEventListener('click', function(){
+      ap.tradePay({
+        orderStr: 'timestamp=2016-12-27%2018%3A00%3A00&method=alipay.trade.app.pay&app_id=2014073000007292......'
+      }, function(res){
+        ap.alert(res.resultCode);
+      });
+    });
 
   </script>
 </body>
