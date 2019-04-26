@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>一个div实现进度条效果</title>
+  <style>
+    .progress{
+      --c: #0ff;
+      --p: 60%;
+      height: 30px;
+      background-color: silver;
+      border-radius: 30px;
+      background-image: radial-gradient(closest-side circle at var(--p), var(--c),var(--c) 100%, transparent), linear-gradient(var(--c), var(--c));
+      background-size: 100%, var(--p);
+      background-repeat: no-repeat;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="progress"></div>
+  </div>
+
+  <script>
+    var progress = document.querySelector('.progress');
+    progress.style.setProperty('--p','50%');
+  </script>
+</body>
+</html>
