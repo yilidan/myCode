@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>防抖函数和节流函数Demo</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    #app{
+      width: 100%;
+      height: 3000px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+
+  </div>
+
+  <script>
+    // 防抖函数
+    // 解释：当持续触发某事件时，一定时间间隔内没有再触发事件时，事件处理函数才会执行一次，如果设定的时间间隔到来之前，又一次触发了事件，就重新开始延时。
+    // 案例：持续触发scroll事件时，并不立即执行handle函数，当1000毫秒内没有触发scroll事件时，才会延时触发一次handle函数。
+    function debounce(fn, wait) {
+      let timeout = null
+      return function() {
+        if (timeout !== null) clearTimeout(timeout)
+        timeout = setTimeout(fn, wait)
+      }
+    }
+
+    // test
+    function handle() {
+      var t = document.documentElement.scrollTop || document.body.scrollTop
+      console.log(t)
+      if (t > 1000) {
+        console.log(Math.random())
+      }
+    }
+
+    // window.addEventListener('scroll', debounce(handle, 200))
+    // window.addEventListener('scroll', handle)
+
+    // ---------------------------------------------------------
+    // 节流函数
+    // 解释：当持续触发事件时，有规律的每隔一个时间间隔执行一次事件处理函数。
+    // 案例：持续触发scroll事件时，并不立即执行handle函数，每隔1000毫秒才会执行一次handle函数。
+    function throttle(fn, delay) {
+      var prev = Date.now()
+      return function() {
+        var now = Date.now()
+        if (now - prev > delay) {
+          fn()
+          prev = Date.now()
+        }
+      }
+    }
+
+    function handleThr() {
+      var t = document.documentElement.scrollTop || document.body.scrollTop
+      console.log(t)
+      if (t > 1000) {
+        console.log(Math.random())
+      }
+    }
+
+    window.addEventListener('scroll', throttle(handleThr, 1000))
+    // window.addEventListener('scroll', handleThr)
+
+
+
+  // 总结： 
+  // 防抖和节流都可以用于 mousemove、scroll、resize、input等事件，他们的区别在于防抖只会在连续的事件周期结束时执行一次，而节流会在事件周期内按间隔时间有规律的执行多次。
+  </script>
+</body>
+</html>
