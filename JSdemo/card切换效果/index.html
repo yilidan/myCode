@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>card切换效果</title>
     <style>
@@ -77,10 +77,10 @@
           :style="[cardTransform(index),indexTransform(index)]"
           @touchstart.stop.capture.prevent="touchStart($event,index)"
           @touchmove.stop.capture.prevent="touchMove($event)"
-          @touchend.stop.capture.prevent="touchEnd($event,index)"
+          @touchend.stop.capture.prevent="touchEnd($event)"
           @mousedown.stop.capture.prevent="touchStart($event, index)"
           @mousemove.stop.capture.prevent="touchMove($event)"
-          @mouseup.stop.capture.prevent="touchEnd($event)"
+          @mouseup.stop.capture.prevent="touchEnd()"
           @webkit-transition-end="onTransitionEnd(index)"
           @transitionend="onTransitionEnd(index)"
           :class="{display: item.display}">
