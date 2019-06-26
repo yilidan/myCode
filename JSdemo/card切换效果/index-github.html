@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>card切换效果</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      #app {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+        /* transition: background-color .5s; */
+        background-color: #8ec6ca;
+        text-align: center;
+      }
+      .card_container {
+        display: inline-block;
+        vertical-align: middle;
+        position: relative;
+        z-index: 11;
+        margin: 1rem auto;
+        width: 6.86rem;
+        height: 8.96rem;
+        perspective: 1000px;
+        perspective-origin: 50% 150%;
+        -webkit-perspective: 1000px;
+        -webkit-perspective-origin: 50% 150%;
+      }
+      .card {
+        transform-style: preserve-3d;
+        width: 100%;
+        height: 100%;
+        border-radius: 0.24rem;
+        position: absolute;
+        z-index: 30;
+        background: #fff;
+        /* opacity: 0; */
+        /* display: none; */
+        text-align: center;
+        font-size: 30px;
+        line-height: 1;
+        box-shadow: 0 0.12rem 0.48rem 0 rgba(68, 136, 129, 0.24);
+      }
+      .cara-main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+      }
+      /* .card.display {
+        display: block;
+        opacity: 1;
+      } */
+      [v-cloak]{
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app" v-cloak>
+      <div class="card_container">
+        <div class="card" 
+          v-for="(item, index) in dataArr"
+          ondragstart="return false"
+          class="card"
+          :style="[cardTransform(index),indexTransform(index)]"
+          @touchstart.stop.capture.prevent="touchStart($event,index)"
+          @touchmove.stop.capture.prevent="touchMove($event)"
+          @touchend.stop.capture.prevent="touchEnd($event,index)"
+          @mousedown.stop.capture.prevent="touchStart($event, index)"
+          @mousemove.stop.capture.prevent="touchMove($event)"
+          @mouseup.stop.capture.prevent="touchEnd($event)"
+          @webkit-transition-end="onTransitionEnd(index)"
+          @transitionend="onTransitionEnd(index)"
+          :class="{display: item.display}">
+          <div class="cara-main">
+            <span>第{{index+1}}章</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./rem.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      var vm = new Vue({
+        el: '#app',
+        data: {
+          dataArr: [
+            { id: 1 ,display: false},
+            { id: 2 ,display: false},
+            { id: 3 ,display: false},
+            { id: 4 ,display: false},
+            { id: 5 ,display: false},
+            { id: 6 ,display: false},
+            { id: 7 ,display: false},
+            { id: 8 ,display: false},
+            { id: 9 ,display: false}
+          ],
+          // 当前展示的图片index
+          currentIndex: 0,
+          // 记录偏移量
+          displacement: {
+            x: 0,
+            y: 0
+          },
+          // 位置信息
+          position: {
+            start: { x: 0, y: 0 },
+            end: { x: 0, y: 0 },
+            direction: 1, // 滑动方向，左是-1，右是1
+            swipping: false // 是否在拖动交换过程中
+          },
+          // 记录每一个丢出去的方向
+          directionArr: [],
+          // 显示图片的堆叠数量
+          visible: 3,
+          // 视口宽度
+          winWidth: 0,
+          //  滑动阈值
+          slideWidth: 70,
+          // 超过阈值时的自动偏移量
+          offsetWidth: 120,
+
+          isFav: 0,
+          curBgColor: "color-1",
+          colorNum: 1,
+          isSwitch: !1,
+          isGuideEnd: !1,
+          backInterval: null,
+          outInterval: null,
+          errorTip: "",
+          userSex: 1,
+          isCheckLoad: !1,
+          isDrag: false
+
+        },
+        created() {
+          this.winWidth = window.innerWidth
+          // console.log(this.winWidth)
+        },
+        methods: {
+          // 初始化每张卡片的样式
+          cardTransform: function(index) {
+            let style = {}
+            //卡片自动位移距离（飞出屏幕多远）
+            let offset = 0
+            if (this.directionArr[index] === 1) {
+              offset = 800
+            } else if (this.directionArr[index] === -1) {
+              offset = -800
+            }
+
+            style['z-index'] = this.currentIndex - index + this.visible
+            style['transform'] = `translate3d(0,0,${(this.currentIndex -
+              index) *
+              60}px)`
+
+            //让藏在后面的卡片缩小样式堆叠在一起并透明不显示。一旦飞走一张，下一张卡片会自动过渡动画往前推进
+            if (index - this.currentIndex < 0) {
+              style['opacity'] = 0
+              style['transform'] = `translate3d(${this.position.end.x +
+                offset}px,${this.position.end.y}px,${(this.currentIndex -
+                index) *
+                60}px) rotate(${this.position.direction * -65}deg)`
+            }
+
+            // 非手势滑动状态才添加过渡动画
+            if (!this.position.swipping) {
+              style['transitionTimingFunction'] = 'ease'
+              style['transitionDuration'] = 300 + 'ms'
+            }
+            return style
+          },
+          // 第一张卡片的样式
+          indexTransform: function(index) {
+            let style = {}
+            if (index === this.currentIndex) {
+              style['transform'] = `translate3d(${this.displacement.x}px,${
+                this.displacement.y
+              }px,${(this.currentIndex - index) * 60}px) rotate(${(this
+                .displacement.x /
+                this.winWidth) *
+                -65}deg)`
+            }
+            // 非手势滑动状态才添加过渡动画
+            if (!this.position.swipping) {
+              style['transitionTimingFunction'] = 'ease'
+              style['transitionDuration'] = 300 + 'ms'
+            }
+
+            return style
+          },
+          touchStart: function(a, i) {
+             this.dataArr.length - 1 && i === this.currentIndex && ("touchstart" === a.type ? (this.position.start.x = a.targetTouches[0].clientX,
+            this.position.start.y = a.targetTouches[0].clientY) : (this.position.start.x = a.x,
+            this.position.start.y = a.y),
+            this.position.swipping = !0)
+          },
+          touchMove: function(a) {
+            this.position.swipping && ("touchmove" === a.type ? (this.displacement.x = a.targetTouches[0].clientX - this.position.start.x,
+            this.displacement.y = a.targetTouches[0].clientY - this.position.start.y) : (this.displacement.x = a.x - this.position.start.x,
+            this.displacement.y = 0),
+            this.isDrag = true)
+          },
+          touchEnd: function() {
+            this.position.swipping = false
+            this.position.end['x'] = this.displacement.x
+            this.position.end['y'] = this.displacement.y
+            if (this.displacement.x > this.slideWidth) {
+              this.cardMove(1) //往右
+            } else if (this.displacement.x < -this.slideWidth) {
+              this.cardMove(-1)  //往左
+            } 
+            // this.displacement.x > this.slideWidth ? this.cardMove(1) : this.displacement.x < -this.slideWidth && this.cardMove(-1),
+            this.$nextTick(function() {
+              this.displacement.x = 0,
+              this.displacement.y = 0,
+              this.isDrag = false
+            })
+          },
+          onTransitionEnd: function(a) {
+            this.currentIndex === a + 1 && (this.position.end.x = 0,
+            this.position.end.y = 0)
+          },
+          cardMove: function(direction) {
+            this.position.direction = direction;
+            try {
+              this.dataArr[this.currentIndex + 3].display  = true
+            } catch (e) {}
+            if (this.currentIndex > 0)
+              try {
+                this.dataArr[this.currentIndex - 1].display = false
+              } catch (e) {}
+            this.currentIndex++
+            !direction ? this.position.end.x -= this.offsetWidth : this.position.end.x += this.offsetWidth
+            this.position.end.y += this.offsetWidth / 2
+            // this.getBookInfo(),
+            // this.bgChange(),
+            // this.setLocalStorage(a),
+            // this.dataArr[this.currentIndex].tagShow = !0
+        },
+
+        }
+      })
+    </script>
+  </body>
+</html>
