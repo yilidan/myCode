@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>canvas实现水波图效果</title>
+  <style>
+    *{
+      padding: 0;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <canvas ref="canvas"></canvas>
+  </div>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    var vm = new Vue({
+      el: "#app",
+      data: {
+        // canvas: {}
+      },
+      created () {
+        
+      },
+      mounted () {
+        this.$nextTick(() => {
+          this.componentDidMount()
+        })
+      },
+      methods: {
+        componentDidMount() {
+          const canvas = this.$refs.canvas
+          canvas.width = window.innerWidth
+          // canvas.width = 500
+          canvas.height = 500
+          this.canvas = canvas
+          this.canvasWidth = canvas.width
+          this.canvasHeight = canvas.height
+          // const ctx = canvas.getContext('2d')
+          // this.drawSin(ctx)
+
+          this.xOffset = 0  // 初始偏移
+          this.speed = 0.1  // 偏移速度
+          // 水位数值
+          this.rangeValue = 0.6
+          // 初始水位
+          this.nowRange = 0
+          requestAnimationFrame(this.draw.bind(this, canvas))
+        },
+        draw() {
+          const canvas = this.canvas
+          const ctx = canvas.getContext('2d')
+          ctx.clearRect(0, 0, canvas.width, canvas.height)
+          // 画圆
+          if (!this.isDrawCirle) {
+            this.drawCirle(ctx)
+          }
+          // 曲线绘制
+          this.drawSin(ctx, this.xOffset, this.nowRange)
+          this.xOffset += this.speed
+          if (this.nowRange < this.rangeValue) {
+            this.nowRange += 0.01
+          }
+          requestAnimationFrame(this.draw.bind(this))
+        },
+        // 画圆形
+        drawCirle(ctx) {
+          const r = this.canvasWidth / 2
+          const lineWidth = 5
+          const cR = r - (lineWidth)
+          ctx.lineWidth = lineWidth
+          ctx.beginPath()
+          ctx.arc(r, r, cR, 0, 2 * Math.PI)
+          ctx.stroke()
+          ctx.clip()
+          this.isDrawCirle = true
+        },
+        // 曲线绘制
+        drawSin(ctx, xOffset = 0, nowRange = 0) {
+          const points = []
+          const canvasWidth = this.canvasWidth
+          const canvasHeight = this.canvasHeight
+          const startX = 0
+          const waveWidth = 0.05  // 波浪宽度,数越小越宽
+          const waveHeight = 10   // 波浪高度,数越大越高
+          // const xOffset = 0   // 水平位移
+
+          ctx.beginPath()
+          for (let x = startX; x < startX + canvasWidth; x += 20 / canvasWidth){
+            const y = waveHeight * Math.sin((startX + x) * waveWidth + xOffset);
+            points.push([x, (1 - nowRange) * canvasHeight + y]);
+            ctx.lineTo(x, (1 - nowRange) * canvasHeight + y);
+          }
+          ctx.lineTo(canvasWidth, canvasHeight)
+          ctx.lineTo(startX, canvasHeight)
+          ctx.lineTo(points[0][0], points[0][1])
+          ctx.stroke()
+        }
+      }
+    })
+  </script>
+</body>
+</html>
