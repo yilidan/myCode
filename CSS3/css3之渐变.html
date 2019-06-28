@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>CSS之渐变</title>
+  <style>
+    *{
+      padding: 0;
+      margin: 0;
+    }
+    .main{
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+    }
+    .box{
+      width: 50px;
+      height: 300px;
+      margin-top: 30px;
+      border-radius: 50px;
+      position: relative;
+    }
+    .box1{
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+    .box1::after{
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      content: '';
+      display: block;
+      width: 100%;
+      height: 60%;
+      border-radius: 50px;
+      background: linear-gradient(#FD2266, 0%, #0097FF);
+      /* background: linear-gradient(#FD2266 0%, transparent 20%); */
+    }
+    .box2{
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+    .child-box2{
+      width: 100%;
+      height: 80%;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      /* background: linear-gradient(180deg, #FD2266 0%, #0097FF 20%); */
+      background: linear-gradient(#FD2266, 30%, #0097FF);
+      border-radius: 50px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="main">
+      <!-- demo1 -->
+      <div class="box box1"></div>
+      <!-- demo3 -->
+      <div class="box box2">
+        <div class="child-box2"></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
