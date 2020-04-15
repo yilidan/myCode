@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        /*进度条start*/
+
+        .order_status {
+            height: 175px;
+            padding-top: 90px;
+            padding-left: 160px
+        }
+
+        .order_status .s-step {
+            float: left;
+            width: 170px;
+            height: 60px;
+            position: relative;
+        }
+
+        .order_status .s-step:nth-child(5n) {
+            width: 0px;
+        }
+
+        .order_status .s-step.active {
+            float: left;
+            width: 170px;
+            height: 60px;
+            position: relative;
+        }
+
+        .order_status .s-step>b>b.active {
+            background-color: #337ab7
+        }
+
+        .order_status .s-step>b {
+            display: block;
+            width: 32px;
+            height: 32px;
+            line-height: 32px;
+            border-radius: 32px;
+            position: absolute;
+            margin-left: -16px;
+            top: -20px;
+            z-index: 87
+        }
+
+        .order_status .s-step>b>b {
+            display: block;
+            width: 26px;
+            height: 26px;
+            line-height: 26px;
+            border-radius: 26px;
+            background: #ccc;
+            margin-top: 3px;
+            margin-left: 3px;
+            z-index: 88
+        }
+
+        .order_status .s-step>p {
+            width: 161px;
+            border: 1px dashed #ddd;
+            top: -20px;
+            position: absolute;
+            z-index: 86
+        }
+
+        .order_status .s-step>p.active {
+            width: 161px;
+            border: 1px dashed #337ab7;
+            top: -20px;
+            position: absolute;
+            z-index: 86
+        }
+
+        .order_status .s-step em {
+            display: block;
+            padding-top: 20px;
+            font-style: normal;
+            text-align: center;
+            color: #b7b7b7;
+            font-size: 12px;
+            margin-left: -65px;
+            width: 130px
+        }
+
+        .order_status .s-step>div {
+            display: block;
+            width: 80px;
+            height: 32px;
+            line-height: 32px;
+            position: absolute;
+            margin-left: -40px;
+            top: -55px;
+            z-index: 87;
+            text-align: center;
+            font-size: 12px;
+            color: #c9c4c4
+        }
+
+        .order_status .s-step>div.active {
+            display: block;
+            width: 80px;
+            height: 32px;
+            line-height: 32px;
+            position: absolute;
+            margin-left: -40px;
+            top: -55px;
+            z-index: 87;
+            text-align: center;
+            font-size: 12px;
+            color: #337ab7
+        }
+
+        /*步骤条end*/
+    </style>
+</head>
+
+<body>
+    <div class="order_status">
+        <span class="s-step s-step0">
+            <b>
+                <b></b>
+            </b>
+            <p></p>
+            <em>2017-05-05 10:01:05</em>
+            <div>下发订单</div>
+        </span>
+        <span class="s-step s-step1">
+            <b>
+                <b></b>
+            </b>
+            <p></p>
+            <em>2017-05-06 10:01:05</em>
+            <div>接受订单</div>
+        </span>
+        <span class="s-step s-step2 active">
+            <b>
+                <b></b>
+            </b>
+            <p></p>
+            <em>2017-05-07 10:01:05</em>
+            <div>提交订单</div>
+        </span>
+        <span class="s-step s-step3">
+            <b>
+                <b></b>
+            </b>
+            <p></p>
+            <em>2017-05-08 10:01:05</em>
+            <div>审核通过</div>
+        </span>
+        <span class="s-step s-step4 ">
+            <b>
+                <b></b>
+            </b>
+            <em>2017-05-09 10:01:05</em>
+            <div>订单完成</div>
+        </span>
+    </div>
+    <script src='https://cdn.bootcss.com/jquery/3.3.1/jquery.js'></script>
+    <script>
+        //步骤条
+        if ($(".s-step0").hasClass("active")) {
+            $(".s-step0>b>b,.s-step0>div").addClass("active");
+            $(".s-step1>em,.s-step2>em,.s-step3>em,.s-step4>em").hide();
+        }
+        else if ($(".s-step1").hasClass("active")) {
+            $(".s-step1>b>b,.s-step1>div,.s-step0>b>b,.s-step0>p,.s-step0>div").addClass("active");
+            $(".s-step2>em,.s-step3>em,.s-step4>em").hide();
+        }
+        else if ($(".s-step2").hasClass("active")) {
+            $(".s-step2>b>b,.s-step2>div,.s-step1>p,.s-step1>b>b,.s-step1>div,.s-step0>b>b,.s-step0>p,.s-step0>div").addClass("active");
+            $(".s-step3>em,.s-step4>em").hide();
+        }
+        else if ($(".s-step3").hasClass("active")) {
+            $(".s-step3>b>b,.s-step3>div,.s-step2>p,.s-step2>b>b,.s-step2>div,.s-step1>p,.s-step1>b>b,.s-step1>div,.s-step0>b>b,.s-step0>p,.s-step0>div").addClass("active");
+            $(".s-step4>em").hide();
+        }
+        else {
+            $(".s-step4>b>b,.s-step4>div,.s-step3>p,.s-step3>b>b,.s-step3>div,.s-step2>p,.s-step2>b>b,.s-step2>div,.s-step1>p,.s-step1>b>b,.s-step1>div,.s-step0>b>b,.s-step0>p,.s-step0>div").addClass("active");
+        }
+    </script>
+</body>
+
+</html>

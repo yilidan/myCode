@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>webGL-第一节</title>
+  <link rel="stylesheet" href="../css/common.css">
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+
+
+
+  <!-- 顶点着色器源码 -->
+  <script type="shader-source" id="vertexShader">
+    void main() {
+      // 声明顶点位置
+      gl_Postion = vec4(0.0, 0.0, 0.0, 1.0);
+      // 声明待绘制点的大小
+      gl_PointSize = 10.0;
+    }
+  </script>
+  <!-- 片元着色器源码 -->
+  <script type="shader-source" id="fragmentShader">
+    void main() {
+      // 设置像素颜色为红色
+      gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+    }
+  </script>
+  <script>
+    var canvas = document.querySelector("#canvas");
+    var gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+    // 获取顶点着色器源码
+    var vertexShaderSource = document.querySelector('#vertexShader').innerHTML;
+    // 创建顶点着色器对象
+    var vertexShader = gl.createShader(gl.VERTEX_SHADER);
+    // 将源码分配给顶点着色器对象
+    gl.shaderSource(vertexShader, vertexShaderSource);
+    // 编译顶点着色器程序
+    gl.compileShader(vertexShader);
+  </script>
+</body>
+</html>
