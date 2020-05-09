@@ -25,6 +25,83 @@
     }
     getValue.call(a, 'yck', '24')
     getValue.apply(a, ['yck', '24'])
+
+    
+    const a1 = {
+      b: 3,
+      // aaa: function() {
+      //   return 1
+      // }
+    }
+
+    function foo(obj) {
+      obj.b = 5
+
+      return obj
+    }
+
+    const aa = foo(a)
+
+    console.log(a1.b)     // 3
+
+    console.log(aa.b)     // 5
+
+
+    
+    function Ofo() {}
+
+    function Bick() {
+      this.name = 'mybick'
+    }
+
+    var myBick = new Ofo()
+
+    Ofo.prototype = new Bick()
+    
+    var youbick = new Bick()
+
+    console.log(myBick.name)    // undefined
+
+    console.log(youbick.name)   // mybick
+
+    // 继承 es5
+    function Person1(name) {
+      this.name = name
+      this.printName = function() {
+        console.log('父类1')
+      }
+    }
+    Person1.prototype.commonFunction = function() {
+      console.log('公共方法1')
+    }
+
+    function Student1(name, score) {
+      Person1.call(this, name)
+      this.score = score
+      this.printScore = function() {
+        console.log('子类1')
+      }
+    }
+
+    Student1.prototype = new Person1()
+
+    let person = new Person1('小紫')
+    let stu = new Student1('小红', 100)
+    console.log(person.name)
+    console.log(stu.name)
+    console.log(stu.printName===person.printName)// false
+    console.log(stu.commonFunction===person.commonFunction)// true
+
+    // 闭包
+    function f1() {
+      var f123 = 1
+      function f2() {
+        console.log(f123)
+      }
+      return f2
+    }
+    const x = f1()
+    x()
   </script>
 </body>
 
