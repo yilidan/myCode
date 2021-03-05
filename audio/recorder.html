@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <audio controls="controls"></audio>
+  <div class="recorderControl">录制</div>
+  <script>
+    var promise = navigator.mediaDevices.getUserMedia({
+        audio: true
+    })
+    promise.then(function(stream) {
+      alert(stream)
+      recorder.ondataavailable = function() {
+        //收集媒体设备 获得到的 可以使用的 媒体流数据
+        console.log(event.data)
+      }
+    })
+  
+    promise.catch(function(error) {
+      alert(error.name)
+      alert(error.message)
+    })
+  </script>
+</body>
+</html>
